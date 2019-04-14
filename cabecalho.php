@@ -2,10 +2,23 @@
 <html lang="pt-br">
 <head>
 	<title>CINEMEP</title>
-	<meta charset="UTF-8" />
-	<link rel="shortcut icon" href="img/icon_amarelo.png" />
+
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Icon Page -->
+	<link rel="shortcut icon" href="img/icon_amarelo.png" />		
+
+	<!-- (2) Local CSS (Inverter Ordem) -->
 	<link rel="stylesheet" href="css/reset.css" />
 	<link rel="stylesheet" href="css/estilos.css"/>
+	<link rel="stylesheet" href="css/estilos-filmes.css"/>
+
+    <!-- (1) Bootstrap CSS -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
 </head>
 <body>
 <div id="container">
