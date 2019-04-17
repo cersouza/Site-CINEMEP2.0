@@ -21,16 +21,20 @@
 
 </head>
 <body>
-<div id="container">
+<div class="container">
 
-	<header>
-		<h1><img src="img/logo_amarelo.png" class="logotipo" alt="logo.png" title="Logo CINEMEP"/></h1>
-		<nav class="menu">
-			<ul>
-				<li class="<?php echo $pag1 ?>"><a href="index.php">HOME</a></li>		
-				<li class="<?php echo $pag2 ?>"><a href="o-software.php">O SOFTWARE</a></li>
-				<li class="<?php echo $pag3 ?>"><a href="os-desenvolvedores.php">OS DESENVOLVEDORES</a></li>
-				<li class="<?php echo $pag4 ?>"><a href="contato.php" class="<?php $pag4?>">CONTATO</a></li>
-			</ul>
-		</nav>
-	</header>
+	<div class="row">
+		<div class="col-md12">
+			<header>
+				<h1><img src="img/logo_amarelo.png" class="logotipo" alt="logo.png" title="Logo CINEMEP"/></h1>
+				<nav class="menu">
+					<ul>
+						<li class="<?php echo $pag1 ?>"><a href="index.php">HOME</a></li>		
+						<li class="<?php echo $pag2 ?>"><a href="o-software.php">O SOFTWARE</a></li>
+						<li class="<?php echo $pag3 ?>"><a href="os-desenvolvedores.php">OS DESENVOLVEDORES</a></li>
+						<li class="<?php echo $pag4 ?>"><a href="contato.php" class="<?php $pag4?>">CONTATO</a></li>
+					</ul>
+				</nav>
+			</header>
+		</div>
+	</div>

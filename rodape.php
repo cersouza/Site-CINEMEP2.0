@@ -1,7 +1,10 @@
-			<footer>
-			<span>2018, Caio Eduardo & Matheus Furlan, Todos os direitos reservados.</span>
-			</footer>
-	
+			<div class="row">
+				<div class="col-md12">
+					<footer>
+					<span>2018, Caio Eduardo & Matheus Furlan, Todos os direitos reservados.</span>
+					</footer>
+				</div>
+			</div>	
 		</div>
 
 	    <!-- Bootstrap JS -->
