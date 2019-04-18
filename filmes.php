@@ -3,13 +3,15 @@
 ?>	
 		<div class="row">
 			<div class="col-md-12">
-
-				<div class="panel panel-default">
-					<div class="panel-body">
+				<!-- Criando um Card, definido o paddingY (py - top and bottom) e o paddingX (px - left and right);
+					Definir se faz tudo com .card ou com .panel - CERSZ -->
+				<div class="card bg-light py-md-3 px-md-4">
+					<div class="card-header"><h3 class="card-title">Capitã Marvel</h3></div>
+					<div class="card-body">
 
 						<div class="row">
 							<div class="col-md-4 d-flex justify-content-center">
-								<img class="img-thumbnail img-responsive" src="img/filmes/capita-marvel.jpg">
+								<img class="img-thumbnail" src="img/filmes/capita-marvel.jpg">
 							</div>
 						
 							<div class="col-md-8">

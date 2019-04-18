@@ -1,6 +1,6 @@
-    <footer class="jumbotron text-center text-light bg-primary" style="margin-bottom:0">© 2019 Copyright:
+    <footer class="jumbotron text-center text-light bg-primary" style="margin-bottom:0">
       <div class="footer-copyright">
-        <a href="os-desenvolvedores.php">Caio Eduardo & Matheu Furlan - SI, UNIMEP</a>
+      © 2019 Copyright: Caio Eduardo & Matheu Furlan - SI, UNIMEP 
       </div>
     </footer>
 
