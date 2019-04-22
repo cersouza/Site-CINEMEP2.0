@@ -1,6 +1,6 @@
 /* Set a background image by replacing the URL below */
 body {
-    background-image: url("../img/background_white1.jpg");
+  background-image: url("../img/background_white1.jpg");
 	background-attachment: fixed;
 	background-size: cover;
   }
