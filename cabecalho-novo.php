@@ -1,5 +1,11 @@
+<?php
+  //Setando configurações de data
+  setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+  date_default_timezone_set('America/Sao_Paulo');
+?>
+
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">

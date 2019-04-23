@@ -1,11 +1,46 @@
 ﻿<?php
 	include_once("cabecalho-novo.php");
+	require_once("BD/conecta.php");
+
+	$filme_id = $_GET["id"];
+	
+	$query = "Select * from Filmes F
+		  inner join Genero G on (F.Fil_Genero = G.Gen_Codigo)
+		  inner join Classificacao C on (F.Fil_Classificacao = C.Cla_Codigo)
+		  inner join Distribuidora D on (F.Fil_Distribuidora = D.Dis_Codigo)
+		  Where F.Fil_Codigo=".$filme_id.";";
+
+	$result = mysqli_query($dbc, $query);
+
+	if(mysqli_num_rows($result) == 0)
+	{
+		echo "Filme não encontrado";
+	}else
+	{
+		//início else
+			$filme = mysqli_fetch_assoc($result);
+
+			$fttl = $filme["Fil_Titulo"];
+			$fsnp = $filme["Fil_Sinopse"];
+			$ffto = $filme["Fil_Foto"];
+			
+			//Depois de setar as configurações de Data em "cabecalho.php", convertendo data	
+			$flnc = strftime('%e de %B de %Y.', strtotime($filme["Fil_Lancamento"]));
+				
+			
+
+			$ftmp = $filme["Fil_Tempo"];
+			$fgnr = $filme["Fil_Genero"];
+			$fclss = $filme["Fil_Classificacao"]; 
+			$fdst = $filme["Fil_Distribuidora"];  
+
+
 ?>	
 		<div class="row">
 			<div class="col-md-12">
 				<!-- Criando um Card, definido o paddingY (py - top and bottom) e o paddingX (px - left and right) - CERSZ -->
 				<div class="card bg-light">
-					<div class="card-header text-primary"><h3 class="card-title">Capitã Marvel</h3></div>
+					<div class="card-header text-primary"><h3 class="card-title text-capitalize"><?php echo $fttl?></h3></div>
 					<div class="card-body">
 
 						<div class="row">
@@ -16,17 +51,11 @@
 							<div class="col-md-8">
 								<table class="table">
 									<tbody>
-											<tr><th>Título:</th><td>Capitã Marvel</td></tr>							
-											<tr><th>Data Lançamento:</th><td>7 de março de 2019 (2h 04min)</td></tr>
+											<tr><th>Título:</th><td><?php echo $fttl?></td></tr>							
+											<tr><th>Data Lançamento:</th><td><?php echo $flnc?></td></tr>
 											<tr><th>Elenco:</th><td>Brie Larson, Samuel L. Jackson, Jude Law</td></tr>
 											<tr><th>Sinopse:</th>
-												<td><p>
-													Carol Danvers (Brie Larson) é uma ex-agente da Força Aérea norte-americana, que, 
-													sem se lembrar de sua vida na Terra, é recrutada pelos Kree para fazer parte de seu exército de elite. 
-													Inimiga declarada dos Skrull, ela acaba voltando ao seu planeta de origem para impedir uma invasão dos
-													metaformos, e assim vai acabar descobrindo a verdade sobre si, com a ajuda do agente
-													Nick Fury (Samuel L. Jackson) e da gata Goose.
-												</p></td>
+												<td><p><?php echo $fsnp?></p></td>
 											</tr>
 											<tr><th>Nota Usuários:</th><td><h1 class="text-warning d-inline">***</h1></h1 class="text-muted d-inline"> - Regular<h1></td></tr>
 									</tbody>
@@ -95,4 +124,7 @@
 
 			</div>
 		</div>	
-<?php include_once("rodape-novo.php")?>
+<?php
+	} //fim do else
+
+include_once("rodape-novo.php")?>
