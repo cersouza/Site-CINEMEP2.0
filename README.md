@@ -9,4 +9,7 @@ Projeto Desenvolvimento de Sistemas para Internet:
 
 - https://www.rottentomatoes.com/m/captain_marvel
 
+**Observações:**
+- Na página "filme.php" necessário fazer regra validação para quantidade de avaliações por usuário;
+
 **Autores:** Caio Eduardo & Matheus Furlan, 2019.
