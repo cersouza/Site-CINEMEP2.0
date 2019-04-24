@@ -95,7 +95,7 @@ create table Comentario(
     Com_NaoGostou int,
     Com_Avaliacao int,
     Com_Filme int,
-    Com_Data date,
+    Com_Data datetime,
     Com_Situacao char,
     primary key(Com_Codigo),
     foreign key(Com_Usuario) references Usuario(Usu_Codigo),
