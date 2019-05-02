@@ -1,4 +1,7 @@
 ﻿<?php
+	//Setando o título da página
+	//$titulo_pagina = $fttl; (?) - Como fazer? - CERS
+		
 	include_once("cabecalho-novo.php");
 	require_once("BD/conecta.php");
 
@@ -87,6 +90,14 @@
 			else if ($media_avalicao < 5) $ms_nota = " - Bom";
 			else if ($media_avalicao == 5) $ms_nota = " - Excelente";
 
+			//Puxando Info. Atores do Filme
+			$query_atores = "Select A.Atr_Nome as 'atr_nome', F.Atfl_Papel as 'atr_papel'
+			From AtorFilme F inner join Ator A on (F.Atfl_Atr_Codigo = A.Atr_Codigo)
+			Where F.Atfl_Fil_Codigo =".$filme_id."
+			Order by F.Atfl_Importancia;";
+
+			$res_atores = mysqli_query($dbc, $query_atores);		
+
 ?>	
 		<div class="row">
 			<div class="col-md-12">
@@ -105,7 +116,22 @@
 									<tbody>
 											<tr><th>Título:</th><td><?php echo $fttl?></td></tr>							
 											<tr><th>Data Lançamento:</th><td><?php echo $flnc?></td></tr>
-											<tr><th>Elenco:</th><td>Brie Larson, Samuel L. Jackson, Jude Law</td></tr>
+											<tr><th>Elenco:</th>
+												<td>
+												<?php 
+													//se houver mais de um ator cadastrado, será separado por virgulas
+													$str = "";													
+
+													while($fil_atores = mysqli_fetch_assoc($res_atores))
+													{
+														echo $str . "<a href='https://www.google.com/search?q=". $fil_atores['atr_nome']. "' target='_blank'>" . $fil_atores['atr_nome'] . ' (' . $fil_atores['atr_papel'] . ')</a>';
+														$str = ", ";
+													}
+													
+													echo ".";
+												?>
+												</td>
+											</tr>
 											<tr><th>Sinopse:</th>
 												<td><p><?php echo $fsnp?></p></td>
 											</tr>
@@ -131,7 +157,7 @@
 							// Criando um Bloco para comentários (.cards)
 
 							echo "<div class='card bg-light'>
-									<div class='card-header text-primary'><h2 class='card-title'>Comentários (".$Qtd_Coment.")</h2></div>
+									<div class='card-header text-primary'><h2 class='card-title'>Avaliações (".$Qtd_Coment.")</h2></div>
 									<div class='card-body'>									
 								<div class='card-columns bg-light'>";
 
@@ -196,22 +222,24 @@
 
 						<div class="card bg-light">
 								<div class="card-header text-center">
-									<h3 class="card-title">Adicionar Comentário</h3>
+									<h3 class="card-title">Adicionar Avaliação</h3>
 									<button class="btn btn-primary" data-toggle="collapse" data-target="#frm-comentario">Comentar</button>
 								</div>
 								<div class="card-body collapse" id="frm-comentario">									
-									<form class="form-group" method="POST" action="#">
-										<label for="nota">Nota:</label>
-										<select class="form-control w-50" id="nota">
-											<option>1 - Péssimo</option>
-											<option>2 - Ruim</option>
-											<option>3 - Mais ou Menos</option>
-											<option>4 - Bom</option>
-											<option>5 - Excelente</option>
+									<form class="form-group" method="POST" action="BD/cad_comentario.php">
+										<label for="nota">Avaliação:</label>
+										<select name="nota_fil" class="form-control w-50" id="nota">
+											<option value="1">1 - Péssimo</option>
+											<option value="2">2 - Ruim</option>
+											<option value="3">3 - Mais ou Menos</option>
+											<option value="4">4 - Bom</option>
+											<option value="5">5 - Excelente</option>
 										</select>
 
 										<label for="comment">Comentário:</label>
 										<textarea class="form-control" rows="5" id="comment"  name="comentario" placeholder="Digite seu comentário aqui..."></textarea><br>
+
+										<input type="hidden" name="fil_id" value="<?echo $filme_id?>">										
 										<input class="btn btn-primary" type="submit" value="Publicar">
 									</form>
 								</div>

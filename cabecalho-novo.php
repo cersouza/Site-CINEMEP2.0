@@ -17,7 +17,8 @@
     <!-- CSS Interno -->
     <link rel="stylesheet" href="css/estilos.css" />
 
-    <title>****</title>
+    <title><?php if(isset($titulo_pagina)) echo $titulo_pagina . " - CINEMEP";
+                  else echo "CINEMEP"; ?></title>
     <link rel="shortcut icon" href="img/icon_amarelo.png" />
 
   </head>
@@ -37,9 +38,12 @@
             um Navbar apenas usando classes mostrando o que é o navbar-nav e seus nav-item(s)-->
             <div class="navbar-nav">            
               <a class="nav-item active nav-link" href="index.php">HOME <span class="sr-only">(current)</span></a>
-              <a class="nav-item nav-link" href="o-software.php">O SOFTWARE</a>
+              <!-- a class="nav-item nav-link" href="o-software.php">O SOFTWARE</a>
               <a class="nav-item nav-link" href="os-desenvolvedores.php">OS DESENVOLVEDORES</a>
-              <a class="nav-item nav-link" href="contato.php">CONTATO</a>
+              <a class="nav-item nav-link" href="contato.php">CONTATO</a -->
+              <a class="nav-item nav-link" href="contato.php"><button class="btn btn-light text-dark">LOGAR</button></a>
+              <a class="nav-item nav-link" href="contato.php">CADASTRAR-SE</a>
+              
             </div>
 
           </div> 
