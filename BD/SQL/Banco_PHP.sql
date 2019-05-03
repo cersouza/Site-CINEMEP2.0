@@ -101,3 +101,5 @@ create table Comentario(
     foreign key(Com_Usuario) references Usuario(Usu_Codigo),
     foreign key(Com_Filme) references Filmes(Fil_Codigo)
 );
+
+-- Faltam Mias Tabelas!!

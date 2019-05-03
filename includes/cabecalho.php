@@ -2,6 +2,21 @@
   //Setando configurações de data
   setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
   date_default_timezone_set('America/Sao_Paulo');
+
+  $usu_id = -1;
+  
+  session_start();
+
+  if(isset($_SESSION['usu_id'])){  
+    $usu_id = $_SESSION['usu_id'];
+    $usu_nome = $_SESSION['usu_nome'];
+  }
+
+  if ($usu_id == -1){
+    session_unset();
+    session_destroy();
+  }
+
 ?>
 
 <!doctype html>
@@ -37,12 +52,15 @@
             de listas <ul><li>Lista</li><ul> para fazer Menus, podendo criar
             um Navbar apenas usando classes mostrando o que é o navbar-nav e seus nav-item(s)-->
             <div class="navbar-nav">            
-              <a class="nav-item active nav-link" href="index.php">HOME <span class="sr-only">(current)</span></a>
+              <a class="nav-item active nav-link" href="index.php">HOME<span class="sr-only">(current)</span></a>
+              <a class="nav-item active nav-link" href="lista-filmes.php">FILMES<span class="sr-only">(current)</span></a>
               <!-- a class="nav-item nav-link" href="o-software.php">O SOFTWARE</a>
               <a class="nav-item nav-link" href="os-desenvolvedores.php">OS DESENVOLVEDORES</a>
               <a class="nav-item nav-link" href="contato.php">CONTATO</a -->
-              <a class="nav-item nav-link " href="contato.php"><button class="btn btn-light text-dark">LOGAR</button></a>
-              <a class="nav-item nav-link" href="contato.php">CADASTRAR-SE</a>
+
+              <?php if($usu_id > -1) echo "<a class='nav-item nav-link' href='#'>Olá, $usu_nome</a> <a class='nav-item nav-link' href='BD/deslogar.php'>Sair</a>";
+                    else echo"<a class='nav-item nav-link' href='login.php'><button class='btn btn-light text-dark'>LOGAR</button></a>
+                    <a class='nav-item nav-link' href='#'>CADASTRAR-SE</a>";?>             
               
             </div>
 

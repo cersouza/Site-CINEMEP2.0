@@ -5,6 +5,12 @@ Projeto Desenvolvimento de Sistemas para Internet:
 **Status:**
 - Implmentando Bootstrap em todo Site e Criando Página "Filme".
 
+**(!) Falta Fazer:**
+- Melhorar exibição de datas nos comentários (deixar como "Postado há 2 dias, 30min, 2 Semanas, etc.");
+- Fazer menu Dropdown do usuário logado com opções de "Visualizar Perfil" e "Sair";
+- E quando não há comentários, o que aparece?;
+- Dropdown nos Comentários, não está Funcionando (talvez seja algum arquivo bootstrap faltando);
+
 **Referências:**
 
 - https://www.rottentomatoes.com/m/captain_marvel

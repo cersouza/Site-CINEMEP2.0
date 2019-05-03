@@ -2,7 +2,7 @@
 	//Setando o título da página
 	//$titulo_pagina = $fttl; (?) - Como fazer? - CERS
 		
-	include_once("cabecalho-novo.php");
+	include_once("includes/cabecalho.php");
 	require_once("BD/conecta.php");
 
 	//Teste se algum id foi enviado pelo método GET e seu valor é diferente de null
@@ -103,7 +103,7 @@
 			<div class="col-md-12">
 				<!-- Criando um Card, definido o paddingY (py - top and bottom) e o paddingX (px - left and right) - CERSZ -->
 				<div class="card bg-light">
-					<div class="card-header text-primary"><h3 class="card-title text-capitalize"><?php echo $fttl?></h3></div>
+					<div class="card-header text-primary"><h3 class="card-title text-capitalize"><?php echo $fttl; ?></h3></div>
 					<div class="card-body">
 
 						<div class="row">
@@ -147,7 +147,9 @@
 									
 							
 						<?php 
-							$query_comentario = "Select U.Usu_Nome, C.Com_Comentario, C.Com_Gostou, 
+
+							//Puxando Comentários
+							$query_comentario = "Select C.Com_Usuario, C.Com_Codigo, U.Usu_Nome, C.Com_Comentario, C.Com_Gostou, 
 												C.Com_NaoGostou, C.Com_Avaliacao, C.Com_Data from Comentario C
 												inner join Usuario U on (C.Com_Usuario = U.Usu_Codigo) Where C.Com_Filme =".$filme_id.";";
 							$res_comentario = mysqli_query($dbc, $query_comentario);
@@ -162,11 +164,13 @@
 								<div class='card-columns bg-light'>";
 
 							if(mysqli_num_rows($res_comentario) == 0) {
-								echo "<h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2>";
+								echo "<div class='text-center w-100'><h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2></div>";
 							}else{
 
 								while ($comentarios = mysqli_fetch_assoc($res_comentario)) {
 
+								$com_cod = $comentarios["Com_Codigo"];
+								$com_usu_id = $comentarios["Com_Usuario"];
 								$com_usu = $comentarios["Usu_Nome"];
 								$com_desc = $comentarios["Com_Comentario"];
 								
@@ -199,17 +203,29 @@
 								echo "
 								<div class='card bg-class'>
 									<div class='card-body'>	
-									<h2 class='card-title text-warning d-inline'>".$nota."</h2>
-									<h3 class='card-subtitle text-muted d-inline'>".$nota_desc."</h3>				
-										<blockquote class='blockquote mb-0'>
-											<p>".$com_desc."</p>
+									<h2 class='card-title text-warning d-inline'>$nota</h2>
+									<h3 class='card-subtitle text-muted d-inline'>$nota_desc</h3>";
+									
+								if($usu_id == $com_usu_id){
+									//Criando um Dropdown Menu para cada comentário segundo seu Código
+									echo "<div class='dropdown'>
+											<button class='btn btn-primary dropdown-toggle' type='button' id='opc_comentario_".$com_cod."' data-toogle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
+											<div class='dropdown-menu' aria-labelledby='opc_comentario_".$com_cod."'>
+												<a class='dropdown-item' href='#'>Editar</a>
+												<a class='dropdown-item' href='#'>Excluir</a>
+											</div>
+										</div>";
+								}
+
+								echo "<blockquote class='blockquote mb-0'>
+											<p>$com_desc</p>
 											<footer class='blockquote-footer'>
-												".$com_usu."<cite title='Título da fonte'>, ".$com_data."</cite>									
+												$com_usu<cite title='Título da fonte'>, $com_data</cite>									
 											</footer>
-										</blockquote>
+											</blockquote>
 										<hr>
-										<a href='#' class='card-link'>Curti! (".$com_qtd_like.")</a>
-										<a href='#' class='card-link'>Não Gostei! (".$com_qtd_dislike.")</a>
+										<a href='#' class='card-link'>Curti! ($com_qtd_like)</a>
+										<a href='#' class='card-link'>Não Gostei! ($com_qtd_dislike)</a>
 										<a href='#' class='card-link'>Quero Comentar</a>
 									</div>
 								</div>";
@@ -239,7 +255,7 @@
 										<label for="comment">Comentário:</label>
 										<textarea class="form-control" rows="5" id="comment"  name="comentario" placeholder="Digite seu comentário aqui..."></textarea><br>
 
-										<input type="hidden" name="fil_id" value="<?echo $filme_id?>">										
+										<input type="hidden" name="fil_id" value="<?echo $filme_id; ?>">										
 										<input class="btn btn-primary" type="submit" value="Publicar">
 									</form>
 								</div>
@@ -253,4 +269,5 @@
 <?php
 		} //fim do else para Filme Encontrado
 	} //fim do else para GET["id"] encontrado e diferente de null
-include_once("rodape-novo.php")?>
+	
+include_once("includes/rodape.php"); ?>
