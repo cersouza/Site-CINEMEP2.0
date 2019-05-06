@@ -21,18 +21,26 @@
         $res_existe_cmt = mysqli_query($dbc, $q_existe_cmt);
         
 
-        if(mysqli_num_rows($res_existe_cmt) > 0){
+        if(mysqli_num_rows($res_existe_cmt) < 0){
+
             echo "Você já fez sua avaliação, deseja editá-la?";
+            mysqli_free_result($res_existe_cmt);
+
         }else{
+
             $ins_cmt = "Insert Into Comentario (Com_Usuario, Com_Comentario, Com_Gostou, Com_NaoGostou, Com_Avaliacao, Com_Filme, Com_Data, Com_Situacao) 
             Values ($usu_id, '$comentario', 0, 0, $nota, $fil_id, '$data_com', 'T');";
-            
+                        
             if(mysqli_query($dbc, $ins_cmt)){
-                echo "Avaliação Adicionada!";                
+                echo "Avaliação Adicionada!";
+                header("Refresh: 3; url=../filme.php?id=$fil_id");                
             }else{
                 echo "Houve problemas para inserção";
             }
+
         }
 
     }
+
+    mysqli_close($dbc);
 ?>

@@ -208,11 +208,11 @@
 									
 								if($usu_id == $com_usu_id){
 									//Criando um Dropdown Menu para cada comentário segundo seu Código
-									echo "<div class='dropdown'>
-											<button class='btn btn-primary dropdown-toggle' type='button' id='opc_comentario_".$com_cod."' data-toogle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
-											<div class='dropdown-menu' aria-labelledby='opc_comentario_".$com_cod."'>
+									echo "<div class='dropright'>
+											<button type='button' class='btn btn-secondary dropdown-toggle' id='opComentario".$com_cod."' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
+											<div class='dropdown-menu' aria-labelledby='opComentario$com_cod'>
 												<a class='dropdown-item' href='#'>Editar</a>
-												<a class='dropdown-item' href='#'>Excluir</a>
+												<a class='dropdown-item' href='BD/exc_comentario.php?com_cod=$com_cod'>Excluir</a>
 											</div>
 										</div>";
 								}
@@ -269,5 +269,13 @@
 <?php
 		} //fim do else para Filme Encontrado
 	} //fim do else para GET["id"] encontrado e diferente de null
+
+	mysqli_free_result($res_atores);
+	mysqli_free_result($res_comentario);
+	mysqli_free_result($res_filme);
+	mysqli_free_result($res_nota);
+
+	mysqli_close($dbc);
 	
 include_once("includes/rodape.php"); ?>
+

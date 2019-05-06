@@ -39,4 +39,11 @@ $erro = "";
         </div>
     </div>
 
-<?php include_once("includes/rodape.php"); ?>
+<?php
+
+if(isset($_POST['usr'])){ 
+    mysqli_free_result($res_login);
+    mysqli_close($dbc);
+}
+
+include_once("includes/rodape.php"); ?>
