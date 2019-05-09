@@ -27,5 +27,5 @@
 
     mysqli_free_result($res_slt_cmt);
     mysqli_close($dbc);
-    header("Refresh: 3; url=../filme.php?id=$fil_id");
+    header("Location: ../filme.php?id=$fil_id");
 ?>

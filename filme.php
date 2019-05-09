@@ -3,6 +3,8 @@
 	//$titulo_pagina = $fttl; (?) - Como fazer? - CERS
 		
 	include_once("includes/cabecalho.php");
+	//Bloco de funções para a página
+	include_once("includes/funcoes.php");
 	require_once("BD/conecta.php");
 
 	//Teste se algum id foi enviado pelo método GET e seu valor é diferente de null
@@ -189,6 +191,7 @@
 									case 5: $nota_desc = "- Excelente";
 									break;
 								}
+								
 								$nota = "";
 
 								for($x = 1; $x <= $com_nota; $x++){
@@ -211,8 +214,10 @@
 									echo "<div class='dropright'>
 											<button type='button' class='btn btn-secondary dropdown-toggle' id='opComentario".$com_cod."' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
 											<div class='dropdown-menu' aria-labelledby='opComentario$com_cod'>
-												<a class='dropdown-item' href='#'>Editar</a>
-												<a class='dropdown-item' href='BD/exc_comentario.php?com_cod=$com_cod'>Excluir</a>
+												<button type='button' class='dropdown-item' data-toggle='modal' data-target='#mdl_confAlt".$com_cod."'>Editar</button>
+													".mdl_altComentario($filme_id, $com_nota, $com_cod, $com_desc)."
+												<button type='button' class='dropdown-item' data-toggle='modal' data-target='#mdl_confExc".$com_cod."'>Excluir</button>
+													".mdl_excComentario($com_cod)."
 											</div>
 										</div>";
 								}
