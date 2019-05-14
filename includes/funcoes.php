@@ -1,5 +1,30 @@
 <?php
 
+//Funções para Modal
+
+function mdl_erro($erro){
+    echo "<div class='modal fade' id='erro' tabindex='0' role='dialog' aria-labelledby='#' aria-hidden='false'>
+            <div class='modal-dialog modal-dialog-centered' role='document'>
+                <div class='modal-content'>
+                    <div class='modal-header'>
+                        <h5 class='modal-title' id='show_erro'>Erro</h5>
+                        <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                            <span aria-hidden='true'>&times;</span>
+                        </button>
+                    </div>
+
+                    <div class='modal-body'>
+                        <p>$erro</p>
+                    </div>
+
+                    <div class='modal-footer'>
+                        <button type='button' class='btn btn-primary' data-dismiss='modal'>Ok</button>                        
+                    </div>
+                </div>
+            </div>
+        </div>";
+}
+
 function mdl_excComentario ($com_cod){
 
     echo "<div class='modal fade' id='mdl_confExc".$com_cod."' tabindex='".-1 * $com_cod."' role='dialog' aria-labelledby='exc_cmt".$com_cod."' aria-hidden='true'>
@@ -51,6 +76,8 @@ function mdl_altComentario ($filme_id, $com_nota, $com_cod, $com_desc){
     echo "<div class='modal fade' id='mdl_confAlt".$com_cod."' tabindex='".-1 * $com_cod."' role='dialog' aria-labelledby='alt_cmt".$com_cod."' aria-hidden='true'>
             <div class='modal-dialog modal-dialog-centered' role='document'>
                 <div class='modal-content'>
+                <form class='form-group' method='POST' action='BD/alt_comentario.php'>
+
                     <div class='modal-header'>
                         <h5 class='modal-title' id='alt_cmt".$com_cod."'>Editar Comentário</h5>
                         <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
@@ -60,7 +87,7 @@ function mdl_altComentario ($filme_id, $com_nota, $com_cod, $com_desc){
 
                     <div class='modal-body'>
                         
-                    <form class='form-group' method='POST' action='BD/alt_comentario.php'>
+                    
                         <label for='nota'>Avaliação:</label>
                         <select name='nota_fil' class='form-control w-50' id='nota'>
                             <option value='1' $slt_nota1>1 - Péssimo</option>
@@ -73,15 +100,16 @@ function mdl_altComentario ($filme_id, $com_nota, $com_cod, $com_desc){
                         <label for='comment'>Comentário:</label>
                         <textarea class='form-control' rows='5' id='comment'  name='comentario' placeholder='Digite seu comentário aqui...'>$com_desc</textarea><br>
 
-                        <input type='hidden' name='fil_id' value='$filme_id'>	
+                        <input type='hidden' name='fil_id' value='$filme_id'>	                      
+                        <input type='hidden' name='com_cod' value='$com_cod'>
                         
-                        <div class='modal-footer'>                                                                    
-                            <input class='btn btn-primary' type='submit' value='Publicar'>
-                            <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                        </div>
-                    </form>
 
                     </div>
+                    <div class='modal-footer'>                                                                    
+                        <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                        <input class='btn btn-primary' type='submit' value='Salvar'>
+                    </div>
+                </form>
 
                     
                 </div>

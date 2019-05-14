@@ -1,5 +1,8 @@
 <?php
     include_once("conecta.php");
+
+    session_start();
+    $erro = "";
     
     setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
     date_default_timezone_set('America/Sao_Paulo');
@@ -10,18 +13,18 @@
     
     $data_com = strftime('%Y-%m-%d %H:%M:%S');
 
-    if((isset($_SESSION['id']))){
-        echo "Necessário logar!";
+    if(!(isset($_SESSION['usu_id']))){
+        echo "Necessário logar!";                     
     }
-    else{
-        
-        $usu_id = 1;
+    else{  
+
+        $usu_id = $_SESSION['usu_id'];
 
         $q_existe_cmt = "Select * From Comentario Where Com_Usuario = $usu_id;";
         $res_existe_cmt = mysqli_query($dbc, $q_existe_cmt);
         
 
-        if(mysqli_num_rows($res_existe_cmt) < 0){
+        if(mysqli_num_rows($res_existe_cmt) > 0){
 
             echo "Você já fez sua avaliação, deseja editá-la?";
             mysqli_free_result($res_existe_cmt);

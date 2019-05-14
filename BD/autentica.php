@@ -20,6 +20,7 @@
             $_SESSION['usu_nome'] = $usuario['Usu_Nome'];
 
             header('Location: index.php');
+            
 
 
         }else{

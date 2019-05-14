@@ -231,7 +231,6 @@
 										<hr>
 										<a href='#' class='card-link'>Curti! ($com_qtd_like)</a>
 										<a href='#' class='card-link'>Não Gostei! ($com_qtd_dislike)</a>
-										<a href='#' class='card-link'>Quero Comentar</a>
 									</div>
 								</div>";
 									
