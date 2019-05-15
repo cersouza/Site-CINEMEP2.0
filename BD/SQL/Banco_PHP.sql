@@ -105,8 +105,8 @@ create table Comentario(
 create table ReacaoComentario(
     Rc_Usuario int,
     Rc_Comentario int,
-    Rc_like boolean,
-    Rc_Dislike boolean,
+    Rc_like varchar(5),
+    Rc_Dislike varchar(5),
     primary key(Rc_Usuario, Rc_Comentario),
     foreign key(Rc_Usuario) references Usuario(Usu_Codigo),
     foreign key(Rc_Comentario) references Comentario(Com_Codigo)
