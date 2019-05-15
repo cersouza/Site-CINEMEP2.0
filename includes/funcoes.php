@@ -1,4 +1,35 @@
 <?php
+//Mensagens
+function show_msg($tipo, $msg){
+    $mensagem = "";
+
+    if ($tipo == "success"){
+        switch ($msg) {
+            case 1: $mensagem = "Comentário adicionado com sucesso!";
+            break;
+            case 2: $mensagem = "Comentário Alterado com sucesso!";
+            break;
+            case 3: $mensagem = "Comentário Excluído com sucesso!";
+            break;
+            default: $mensagem = "Deu certo!";
+            break;
+        }
+    }else if ($tipo == "error"){
+        switch ($msg) {
+            case 1: $mensagem = "Houve problema na inserção do comentário!";
+            break;
+            case 2: $mensagem = "Houve problema na alteração do comentário!";
+            break;
+            case 3: $mensagem = "Houve problema na exclusão do comentário!";
+            break;
+            default: $mensagem = "Ocorreu um problema!";
+            break;
+        }
+    }
+
+    if ($mensagem != "") echo "<script>alert('$mensagem')</script>";
+}
+
 
 //Funções para Modal
 

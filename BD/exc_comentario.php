@@ -16,9 +16,9 @@
         $q_slt_cmt = "Delete From Comentario Where Com_Codigo = $com_cod;";
 
         if(mysqli_query($dbc, $q_slt_cmt)){
-            echo "Comentário excluido!";
+            header("Location: ../filme.php?id=$fil_id&tipo=success&msg=3");  
         }else{
-            echo "Erro ao excluir comentário";
+            header("Location: ../filme.php?id=$fil_id&tipo=error&msg=3");  
         }
 
     }else{

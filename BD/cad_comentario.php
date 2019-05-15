@@ -35,10 +35,9 @@
             Values ($usu_id, '$comentario', 0, 0, $nota, $fil_id, '$data_com', 'T');";
                         
             if(mysqli_query($dbc, $ins_cmt)){
-                echo "Avaliação Adicionada!";
-                header("Refresh: 3; url=../filme.php?id=$fil_id");                
+                header("Location: ../filme.php?id=$fil_id&tipo=success&msg=1");                  
             }else{
-                echo "Houve problemas para inserção";
+                header("Location: ../filme.php?id=$fil_id&tipo=error&msg=1");  
             }
 
         }

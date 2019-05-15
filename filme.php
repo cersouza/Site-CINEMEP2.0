@@ -27,7 +27,7 @@
 		header("Refresh: 5; url=lista-filmes.php");
 
 	} 
-	else{	
+	else{		
 	$filme_id = $_GET["id"];
 	
 	$query_filme = "Select * from Filmes F
@@ -98,7 +98,12 @@
 			Where F.Atfl_Fil_Codigo =".$filme_id."
 			Order by F.Atfl_Importancia;";
 
-			$res_atores = mysqli_query($dbc, $query_atores);		
+			$res_atores = mysqli_query($dbc, $query_atores);
+			
+			//mensagens
+			if ((isset($_GET["tipo"])) and (isset($_GET["msg"]))){
+				show_msg($_GET["tipo"], $_GET["msg"]);
+			}
 
 ?>	
 		<div class="row">
@@ -200,8 +205,31 @@
 
 
 								$com_data = date('d/m/Y\, \à\s H:i\h', strtotime($comentarios["Com_Data"]));
-								$com_qtd_like = $comentarios["Com_Gostou"];
-								$com_qtd_dislike = $comentarios["Com_NaoGostou"];
+								
+								//Contando Likes
+								$q_qtd_like = "Select Count(Rc_usuario) as 'qtd_like' From ReacaoComentario Where Rc_Comentario = $com_cod and Rc_like = 'True';";
+								
+								if(mysqli_query($dbc, $q_qtd_like))
+								{
+									$res_qtd_like = mysqli_query($dbc, $q_qtd_like);
+									$like = mysqli_fetch_assoc($res_qtd_like);
+
+									$com_qtd_like = $like["qtd_like"];
+								}
+								
+								//Contando Dislikes
+								$q_qtd_dislike = "Select Count(Rc_usuario) as 'qtd_dislike' From ReacaoComentario Where Rc_Comentario = $com_cod and Rc_Dislike = 'True';";
+								
+								if(mysqli_query($dbc, $q_qtd_dislike))
+								{
+									$res_qtd_dislike = mysqli_query($dbc, $q_qtd_dislike);
+									$dislike = mysqli_fetch_assoc($res_qtd_dislike);
+
+									$com_qtd_dislike = $dislike["qtd_dislike"];
+								}								
+								
+								if (!(isset($com_qtd_like))) $com_qtd_like = 0;
+								if (!(isset($com_qtd_dislike))) $com_qtd_dislike = 0;
 								
 								echo "
 								<div class='card bg-class'>
@@ -229,8 +257,8 @@
 											</footer>
 											</blockquote>
 										<hr>
-										<a href='#' class='card-link'>Curti! ($com_qtd_like)</a>
-										<a href='#' class='card-link'>Não Gostei! ($com_qtd_dislike)</a>
+										<a href='BD/curtirComentario.php?fil_id=$filme_id&com_cod=$com_cod' class='card-link'>Curti! ($com_qtd_like)</a>
+										<a href='BD/descurtirComentario.php?fil_id=$filme_id&com_cod=$com_cod' class='card-link'>Não Gostei! ($com_qtd_dislike)</a>
 									</div>
 								</div>";
 									

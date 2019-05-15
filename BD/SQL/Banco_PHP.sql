@@ -102,4 +102,14 @@ create table Comentario(
     foreign key(Com_Filme) references Filmes(Fil_Codigo)
 );
 
+create table ReacaoComentario(
+    Rc_Usuario int,
+    Rc_Comentario int,
+    Rc_like boolean,
+    Rc_Dislike boolean,
+    primary key(Rc_Usuario, Rc_Comentario),
+    foreign key(Rc_Usuario) references Usuario(Usu_Codigo),
+    foreign key(Rc_Comentario) references Comentario(Com_Codigo)
+);
+
 -- Faltam Mias Tabelas!!

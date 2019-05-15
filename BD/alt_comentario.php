@@ -22,14 +22,13 @@
         $usu_id = $_SESSION['usu_id'];
        
 
-        $ins_cmt = "Update Comentario Set Com_Comentario = '$comentario', Com_Avaliacao = $nota, Com_Filme = $fil_id, Com_Data = '$data_com' 
+        $alt_cmt = "Update Comentario Set Com_Comentario = '$comentario', Com_Avaliacao = $nota, Com_Filme = $fil_id, Com_Data = '$data_com' 
                     Where Com_Codigo = $com_cod and Com_Usuario = $usu_id;";
                     
-        if(mysqli_query($dbc, $ins_cmt)){
-            echo "Avaliação Alterada!";
-            header("Refresh: 3; url=../filme.php?id=$fil_id");                
+        if(mysqli_query($dbc, $alt_cmt)){            
+            header("Location: ../filme.php?id=$fil_id&tipo=success&msg=2");                
         }else{
-            echo "Houve problemas para inserção";
+            header("Location: ../filme.php?id=$fil_id&tipo=error&msg=2");  
         }
 
         
