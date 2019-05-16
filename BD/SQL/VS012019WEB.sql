@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 23, 2019 at 07:35 PM
+-- Generation Time: May 14, 2019 at 07:44 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.1.27
 
@@ -54,14 +54,14 @@ CREATE TABLE `AtorFilme` (
   `Atfl_Atr_Codigo` int(11) DEFAULT NULL,
   `Atfl_Fil_Codigo` int(11) DEFAULT NULL,
   `Atfl_Papel` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `Atfl_Importância` int(11) DEFAULT NULL
+  `Atfl_Importancia` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `AtorFilme`
 --
 
-INSERT INTO `AtorFilme` (`Atfl_Codigo`, `Atfl_Atr_Codigo`, `Atfl_Fil_Codigo`, `Atfl_Papel`, `Atfl_Importância`) VALUES
+INSERT INTO `AtorFilme` (`Atfl_Codigo`, `Atfl_Atr_Codigo`, `Atfl_Fil_Codigo`, `Atfl_Papel`, `Atfl_Importancia`) VALUES
 (1, 1, 1, 'Capita Marvel', 1),
 (2, 2, 1, 'Nick Fury', 2),
 (3, 3, 1, 'Yon-Rogg', 2);
@@ -93,14 +93,26 @@ INSERT INTO `Classificacao` (`Cla_Codigo`, `Cla_Descricao`) VALUES
 CREATE TABLE `Comentario` (
   `Com_Codigo` int(11) NOT NULL,
   `Com_Usuario` int(11) DEFAULT NULL,
-  `Com_Comentario` text,
+  `Com_Comentario` text CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   `Com_Gostou` int(11) DEFAULT NULL,
   `Com_NaoGostou` int(11) DEFAULT NULL,
   `Com_Avaliacao` int(11) DEFAULT NULL,
   `Com_Filme` int(11) DEFAULT NULL,
-  `Com_Data` date DEFAULT NULL,
+  `Com_Data` datetime DEFAULT NULL,
   `Com_Situacao` char(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Comentario`
+--
+
+INSERT INTO `Comentario` (`Com_Codigo`, `Com_Usuario`, `Com_Comentario`, `Com_Gostou`, `Com_NaoGostou`, `Com_Avaliacao`, `Com_Filme`, `Com_Data`, `Com_Situacao`) VALUES
+(1, 1, 'Eu gostei Mais ou Menos do filme : /', 0, 0, 4, 1, '2019-05-14 14:43:18', '1'),
+(2, 1, 'Eu gostei Mais ou Menos do filme : /', 0, 1, 3, 1, '2019-05-14 14:40:34', '1'),
+(3, 1, 'Eu gostei Mais ou Menos do filme : /', 1, 0, 3, 1, '2019-05-14 14:40:34', '1'),
+(14, 1, 'Eu gostei Mais ou Menos do filme : /', 0, 0, 3, 1, '2019-05-14 14:40:34', 'T'),
+(15, 1, 'Eu gostei Mais ou Menos do filme : /', 0, 0, 3, 1, '2019-05-14 14:40:34', 'T'),
+(16, 1, 'Eu gostei Mais ou Menos do filme : /', 0, 0, 3, 1, '2019-05-14 14:40:34', 'T');
 
 -- --------------------------------------------------------
 
@@ -140,13 +152,13 @@ CREATE TABLE `Filmes` (
   `Fil_Codigo` int(11) NOT NULL,
   `Fil_Titulo` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Fil_Sinopse` text COLLATE utf8_unicode_ci,
-  `Fil_Foto` text CHARACTER SET latin1,
+  `Fil_Foto` text COLLATE utf8_unicode_ci,
   `Fil_Lancamento` date DEFAULT NULL,
-  `Fil_Tempo` varchar(6) CHARACTER SET latin1 DEFAULT NULL,
+  `Fil_Tempo` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `Fil_Genero` int(11) DEFAULT NULL,
   `Fil_Classificacao` int(11) DEFAULT NULL,
   `Fil_Distribuidora` int(11) DEFAULT NULL,
-  `Fil_Situacao` varchar(7) CHARACTER SET latin1 DEFAULT NULL
+  `Fil_Situacao` varchar(7) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -211,7 +223,9 @@ CREATE TABLE `Usuario` (
 --
 
 INSERT INTO `Usuario` (`Usu_Codigo`, `Usu_Usuario`, `Usu_Nome`, `Usu_Senha`, `Usu_Email`, `Usu_Situacao`) VALUES
-(1, 'caio', 'Caio Eduardo', '123456', 'souzacaiodu@cinemep.com', 'Ativo');
+(1, 'caio', 'Caio Eduardo', '123456', 'souzacaiodu@cinemep.com', 'Ativo'),
+(2, 'dudu', 'Eduardo Du', '123456', 'dudu@cinemep.br', 'Ativo'),
+(3, 'igor', 'Igor Eduardo', '123456', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Inativo');
 
 --
 -- Indexes for dumped tables
@@ -304,7 +318,7 @@ ALTER TABLE `Classificacao`
 -- AUTO_INCREMENT for table `Comentario`
 --
 ALTER TABLE `Comentario`
-  MODIFY `Com_Codigo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Com_Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `Distribuidora`
@@ -334,7 +348,7 @@ ALTER TABLE `Moderador`
 -- AUTO_INCREMENT for table `Usuario`
 --
 ALTER TABLE `Usuario`
-  MODIFY `Usu_Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Usu_Codigo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

@@ -81,7 +81,7 @@ create table AtorFilme(
     Atfl_Atr_Codigo int not null,
     Atfl_Fil_Codigo int not null,
     Atfl_Papel varchar(50) not null,
-    Atfl_Importância int,
+    Atfl_Importancia int,
     primary key(Atfl_Codigo),
     foreign key(Atfl_Atr_Codigo) references Ator(Atr_Codigo),
     foreign key(Atfl_Fil_Codigo) references Filmes(Fil_Codigo) 
@@ -101,3 +101,15 @@ create table Comentario(
     foreign key(Com_Usuario) references Usuario(Usu_Codigo),
     foreign key(Com_Filme) references Filmes(Fil_Codigo)
 );
+
+create table ReacaoComentario(
+    Rc_Usuario int,
+    Rc_Comentario int,
+    Rc_like varchar(5),
+    Rc_Dislike varchar(5),
+    primary key(Rc_Usuario, Rc_Comentario),
+    foreign key(Rc_Usuario) references Usuario(Usu_Codigo),
+    foreign key(Rc_Comentario) references Comentario(Com_Codigo)
+);
+
+-- Faltam Mias Tabelas!!

@@ -1,5 +1,10 @@
 ﻿<?php
-	include_once("cabecalho-novo.php");
+	//Setando o título da página
+	//$titulo_pagina = $fttl; (?) - Como fazer? - CERS
+		
+	include_once("includes/cabecalho.php");
+	//Bloco de funções para a página
+	include_once("includes/funcoes.php");
 	require_once("BD/conecta.php");
 
 	//Teste se algum id foi enviado pelo método GET e seu valor é diferente de null
@@ -22,7 +27,7 @@
 		header("Refresh: 5; url=lista-filmes.php");
 
 	} 
-	else{	
+	else{		
 	$filme_id = $_GET["id"];
 	
 	$query_filme = "Select * from Filmes F
@@ -87,12 +92,25 @@
 			else if ($media_avalicao < 5) $ms_nota = " - Bom";
 			else if ($media_avalicao == 5) $ms_nota = " - Excelente";
 
+			//Puxando Info. Atores do Filme
+			$query_atores = "Select A.Atr_Nome as 'atr_nome', F.Atfl_Papel as 'atr_papel'
+			From AtorFilme F inner join Ator A on (F.Atfl_Atr_Codigo = A.Atr_Codigo)
+			Where F.Atfl_Fil_Codigo =".$filme_id."
+			Order by F.Atfl_Importancia;";
+
+			$res_atores = mysqli_query($dbc, $query_atores);
+			
+			//mensagens
+			if ((isset($_GET["tipo"])) and (isset($_GET["msg"]))){
+				show_msg($_GET["tipo"], $_GET["msg"]);
+			}
+
 ?>	
 		<div class="row">
 			<div class="col-md-12">
 				<!-- Criando um Card, definido o paddingY (py - top and bottom) e o paddingX (px - left and right) - CERSZ -->
 				<div class="card bg-light">
-					<div class="card-header text-primary"><h3 class="card-title text-capitalize"><?php echo $fttl?></h3></div>
+					<div class="card-header text-primary"><h3 class="card-title text-capitalize"><?php echo $fttl; ?></h3></div>
 					<div class="card-body">
 
 						<div class="row">
@@ -105,7 +123,22 @@
 									<tbody>
 											<tr><th>Título:</th><td><?php echo $fttl?></td></tr>							
 											<tr><th>Data Lançamento:</th><td><?php echo $flnc?></td></tr>
-											<tr><th>Elenco:</th><td>Brie Larson, Samuel L. Jackson, Jude Law</td></tr>
+											<tr><th>Elenco:</th>
+												<td>
+												<?php 
+													//se houver mais de um ator cadastrado, será separado por virgulas
+													$str = "";													
+
+													while($fil_atores = mysqli_fetch_assoc($res_atores))
+													{
+														echo $str . "<a href='https://www.google.com/search?q=". $fil_atores['atr_nome']. "' target='_blank'>" . $fil_atores['atr_nome'] . ' (' . $fil_atores['atr_papel'] . ')</a>';
+														$str = ", ";
+													}
+													
+													echo ".";
+												?>
+												</td>
+											</tr>
 											<tr><th>Sinopse:</th>
 												<td><p><?php echo $fsnp?></p></td>
 											</tr>
@@ -121,7 +154,9 @@
 									
 							
 						<?php 
-							$query_comentario = "Select U.Usu_Nome, C.Com_Comentario, C.Com_Gostou, 
+
+							//Puxando Comentários
+							$query_comentario = "Select C.Com_Usuario, C.Com_Codigo, U.Usu_Nome, C.Com_Comentario, C.Com_Gostou, 
 												C.Com_NaoGostou, C.Com_Avaliacao, C.Com_Data from Comentario C
 												inner join Usuario U on (C.Com_Usuario = U.Usu_Codigo) Where C.Com_Filme =".$filme_id.";";
 							$res_comentario = mysqli_query($dbc, $query_comentario);
@@ -131,16 +166,18 @@
 							// Criando um Bloco para comentários (.cards)
 
 							echo "<div class='card bg-light'>
-									<div class='card-header text-primary'><h2 class='card-title'>Comentários (".$Qtd_Coment.")</h2></div>
+									<div class='card-header text-primary'><h2 class='card-title'>Avaliações (".$Qtd_Coment.")</h2></div>
 									<div class='card-body'>									
 								<div class='card-columns bg-light'>";
 
 							if(mysqli_num_rows($res_comentario) == 0) {
-								echo "<h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2>";
+								echo "<div class='text-center w-100'><h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2></div>";
 							}else{
 
 								while ($comentarios = mysqli_fetch_assoc($res_comentario)) {
 
+								$com_cod = $comentarios["Com_Codigo"];
+								$com_usu_id = $comentarios["Com_Usuario"];
 								$com_usu = $comentarios["Usu_Nome"];
 								$com_desc = $comentarios["Com_Comentario"];
 								
@@ -159,6 +196,7 @@
 									case 5: $nota_desc = "- Excelente";
 									break;
 								}
+								
 								$nota = "";
 
 								for($x = 1; $x <= $com_nota; $x++){
@@ -167,24 +205,60 @@
 
 
 								$com_data = date('d/m/Y\, \à\s H:i\h', strtotime($comentarios["Com_Data"]));
-								$com_qtd_like = $comentarios["Com_Gostou"];
-								$com_qtd_dislike = $comentarios["Com_NaoGostou"];
+								
+								//Contando Likes
+								$q_qtd_like = "Select Count(Rc_usuario) as 'qtd_like' From ReacaoComentario Where Rc_Comentario = $com_cod and Rc_like = 'True';";
+								
+								if(mysqli_query($dbc, $q_qtd_like))
+								{
+									$res_qtd_like = mysqli_query($dbc, $q_qtd_like);
+									$like = mysqli_fetch_assoc($res_qtd_like);
+
+									$com_qtd_like = $like["qtd_like"];
+								}
+								
+								//Contando Dislikes
+								$q_qtd_dislike = "Select Count(Rc_usuario) as 'qtd_dislike' From ReacaoComentario Where Rc_Comentario = $com_cod and Rc_Dislike = 'True';";
+								
+								if(mysqli_query($dbc, $q_qtd_dislike))
+								{
+									$res_qtd_dislike = mysqli_query($dbc, $q_qtd_dislike);
+									$dislike = mysqli_fetch_assoc($res_qtd_dislike);
+
+									$com_qtd_dislike = $dislike["qtd_dislike"];
+								}								
+								
+								if (!(isset($com_qtd_like))) $com_qtd_like = 0;
+								if (!(isset($com_qtd_dislike))) $com_qtd_dislike = 0;
 								
 								echo "
 								<div class='card bg-class'>
 									<div class='card-body'>	
-									<h2 class='card-title text-warning d-inline'>".$nota."</h2>
-									<h3 class='card-subtitle text-muted d-inline'>".$nota_desc."</h3>				
-										<blockquote class='blockquote mb-0'>
-											<p>".$com_desc."</p>
+									<h2 class='card-title text-warning d-inline'>$nota</h2>
+									<h3 class='card-subtitle text-muted d-inline'>$nota_desc</h3>";
+									
+								if($usu_id == $com_usu_id){
+									//Criando um Dropdown Menu para cada comentário segundo seu Código
+									echo "<div class='dropright'>
+											<button type='button' class='btn btn-secondary dropdown-toggle' id='opComentario".$com_cod."' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
+											<div class='dropdown-menu' aria-labelledby='opComentario$com_cod'>
+												<button type='button' class='dropdown-item' data-toggle='modal' data-target='#mdl_confAlt".$com_cod."'>Editar</button>
+													".mdl_altComentario($filme_id, $com_nota, $com_cod, $com_desc)."
+												<button type='button' class='dropdown-item' data-toggle='modal' data-target='#mdl_confExc".$com_cod."'>Excluir</button>
+													".mdl_excComentario($com_cod)."
+											</div>
+										</div>";
+								}
+
+								echo "<blockquote class='blockquote mb-0'>
+											<p>$com_desc</p>
 											<footer class='blockquote-footer'>
-												".$com_usu."<cite title='Título da fonte'>, ".$com_data."</cite>									
+												$com_usu<cite title='Título da fonte'>, $com_data</cite>									
 											</footer>
-										</blockquote>
+											</blockquote>
 										<hr>
-										<a href='#' class='card-link'>Curti! (".$com_qtd_like.")</a>
-										<a href='#' class='card-link'>Não Gostei! (".$com_qtd_dislike.")</a>
-										<a href='#' class='card-link'>Quero Comentar</a>
+										<a href='BD/curtirComentario.php?fil_id=$filme_id&com_cod=$com_cod' class='card-link'>Curti! ($com_qtd_like)</a>
+										<a href='BD/descurtirComentario.php?fil_id=$filme_id&com_cod=$com_cod' class='card-link'>Não Gostei! ($com_qtd_dislike)</a>
 									</div>
 								</div>";
 									
@@ -196,22 +270,24 @@
 
 						<div class="card bg-light">
 								<div class="card-header text-center">
-									<h3 class="card-title">Adicionar Comentário</h3>
+									<h3 class="card-title">Adicionar Avaliação</h3>
 									<button class="btn btn-primary" data-toggle="collapse" data-target="#frm-comentario">Comentar</button>
 								</div>
 								<div class="card-body collapse" id="frm-comentario">									
-									<form class="form-group" method="POST" action="#">
-										<label for="nota">Nota:</label>
-										<select class="form-control w-50" id="nota">
-											<option>1 - Péssimo</option>
-											<option>2 - Ruim</option>
-											<option>3 - Mais ou Menos</option>
-											<option>4 - Bom</option>
-											<option>5 - Excelente</option>
+									<form class="form-group" method="POST" action="BD/cad_comentario.php">
+										<label for="nota">Avaliação:</label>
+										<select name="nota_fil" class="form-control w-50" id="nota">
+											<option value="1">1 - Péssimo</option>
+											<option value="2">2 - Ruim</option>
+											<option value="3">3 - Mais ou Menos</option>
+											<option value="4">4 - Bom</option>
+											<option value="5">5 - Excelente</option>
 										</select>
 
 										<label for="comment">Comentário:</label>
 										<textarea class="form-control" rows="5" id="comment"  name="comentario" placeholder="Digite seu comentário aqui..."></textarea><br>
+
+										<input type="hidden" name="fil_id" value="<?echo $filme_id; ?>">										
 										<input class="btn btn-primary" type="submit" value="Publicar">
 									</form>
 								</div>
@@ -225,4 +301,13 @@
 <?php
 		} //fim do else para Filme Encontrado
 	} //fim do else para GET["id"] encontrado e diferente de null
-include_once("rodape-novo.php")?>
+
+	mysqli_free_result($res_atores);
+	mysqli_free_result($res_comentario);
+	mysqli_free_result($res_filme);
+	mysqli_free_result($res_nota);
+
+	mysqli_close($dbc);
+	
+include_once("includes/rodape.php"); ?>
+
