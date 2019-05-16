@@ -48,21 +48,42 @@
           </button>
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">         
           
-            <!-- Em bootstrap podemos deixar de usar os elementos
-            de listas <ul><li>Lista</li><ul> para fazer Menus, podendo criar
-            um Navbar apenas usando classes mostrando o que é o navbar-nav e seus nav-item(s)-->
-            <div class="navbar-nav">            
-              <a class="nav-item active nav-link" href="index.php">HOME<span class="sr-only">(current)</span></a>
-              <a class="nav-item active nav-link" href="lista-filmes.php">FILMES<span class="sr-only">(current)</span></a>
-              <!-- a class="nav-item nav-link" href="o-software.php">O SOFTWARE</a>
-              <a class="nav-item nav-link" href="os-desenvolvedores.php">OS DESENVOLVEDORES</a>
-              <a class="nav-item nav-link" href="contato.php">CONTATO</a -->
+            
+            <ul class="navbar-nav">  
 
-              <?php if($usu_id > -1) echo "<a class='nav-item nav-link' href='#'>Olá, $usu_nome</a> <a class='nav-item nav-link' href='BD/deslogar.php'>Sair</a>";
-                    else echo"<a class='nav-item nav-link' href='login.php'><button class='btn btn-light text-dark'>LOGAR</button></a>
-                    <a class='nav-item nav-link' href='#'>CADASTRAR-SE</a>";?>             
+              <li clss="nav-item active">
+                <a class="nav-link" href="index.php">HOME</span></a>
+              </li>
+              <li clss="nav-item">
+                <a class="nav-link" href="lista-filmes.php">FILMES</span></a>
+              </li>
+              <li clss="nav-item">
+                <a class="nav-link" href="dashboard.php">Administrativo</span></a>
+              </li>
+
+              <?php if($usu_id > -1){ ?>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="opcoes_login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Olá <?= $usu_nome;?>
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="opcoes_login">
+                      <a class="dropdown-item" href="#">Alterar Conta</a>
+                      <hr />
+                      <a class="dropdown-item" href="BD/deslogar.php">Sair</a>                      
+                  </div>
+                </li>
               
-            </div>
+              <?php } else {  ?> 
+                <li clss="nav-item">
+                    <a class='nav-link' href='login.php'><button class='btn btn-light text-dark'>LOGAR</button></a>
+                </li>
+                <li clss="nav-item">
+                    <a class='nav-link' href='#'>CADASTRAR-SE</a>
+                </li>
+              <?php } ?>            
+              
+            </ul>
 
           </div> 
         </div>

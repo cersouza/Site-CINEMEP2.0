@@ -13,12 +13,13 @@
     $fil_id = $cmt["Com_Filme"];
 
     if($usu_id == $cmt["Com_Usuario"]){
+
         $q_slt_cmt = "Delete From Comentario Where Com_Codigo = $com_cod;";
 
         if(mysqli_query($dbc, $q_slt_cmt)){
             header("Location: ../filme.php?id=$fil_id&tipo=success&msg=3");  
         }else{
-            header("Location: ../filme.php?id=$fil_id&tipo=error&msg=3");  
+            echo "Erro ao excluir Comentário";
         }
 
     }else{
