@@ -105,7 +105,7 @@
 		if ($pagina_correta != 1)
 		{
 			$pag .= "<li class='prior'>
-			<a href='ator_menu.php?s=" . ($inicio - $exiba) .
+			<a href='dashboard.php?tb=ator&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
@@ -117,7 +117,7 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='ator_menu.php?s="
+				$pag .= "<li><a href='dashboard.php?tb=ator&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
@@ -131,7 +131,7 @@
 		if ($pagina_correta != $pagina)
 		{
 			$pag .= "<li class='next'>
-			<a href='ator_menu.php?s="
+			<a href='dashboard.php?tb=ator&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}

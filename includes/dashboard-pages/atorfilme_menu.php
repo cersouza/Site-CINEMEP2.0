@@ -9,7 +9,7 @@
 	if (isset($_GET['fil']) && is_numeric($_GET['fil'])) {
 		$fil = $_GET['fil'];
 	} else {
-		header("Location: filme_menu.php");
+		header("Location: dashboard.php?tb=atorfilme&op=menu");
 		exit();	
 	}
 	
@@ -56,8 +56,8 @@
 			break;
 	}
 	
-	$q = "SELECT atfl_codigo, atr_nome, atfl_papel FROM atorfilme 
-		  INNER JOIN ator on (atr_codigo = atfl_atr_codigo)
+	$q = "SELECT atfl_codigo, atr_nome, atfl_papel FROM AtorFilme 
+		  INNER JOIN Ator on (atr_codigo = atfl_atr_codigo)
 		  WHERE (atr_nome like '%$where%') and (atfl_fil_codigo = $fil) ORDER BY $order_by
 		  LIMIT $inicio, $exiba";
 
@@ -69,13 +69,13 @@
 		<thead>
 			<tr>
 				<th width='10%'>
-				<a href='atorfilme_menu.php?fil= " . $fil . "&ordem=cod'>
+				<a href='dashboard.php?tb=atorfilme&op=menu&fil= " . $fil . "&ordem=cod'>
                 Código</a></th>
                 <th width='40%'>
-				<a href='atorfilme_menu.php?fil= " . $fil . "&ordem=nom'>
+				<a href='dashboard.php?tb=atorfilme&op=menu&fil= " . $fil . "&ordem=nom'>
 				Nome</a></th>
 				<th width='30%'>
-				<a href='atorfilme_menu.php?fil= " . $fil . "&ordem=pap'>
+				<a href='dashboard.php?tb=atorfilme&op=menu&fil= " . $fil . "&ordem=pap'>
 				Papel</a></th>
 				<th width='30%'>Ações</th>
 			</tr>
@@ -88,8 +88,8 @@
 			<td>" . $row['atr_nome'] . "</td>
 			<td>" . $row['atfl_papel'] . "</td>
 			<td class='actions'>
-			<a href='atorfilme_alt.php?id=" . $row['atfl_codigo'] ."' class='btn btn-xs btn-warning'>Editar</a>
-            <a href='atorfilme_exc.php?id=" . $row['atfl_codigo'] ."' class='btn btn-xs btn-danger'>Excluir</a>
+			<a href='dashboard.php?tb=atorfilme&op=alt&id=" . $row['atfl_codigo'] ."' class='btn btn-xs btn-warning'>Editar</a>
+            <a href='dashboard.php?tb=atorfilme&op=exc&id=" . $row['atfl_codigo'] ."' class='btn btn-xs btn-danger'>Excluir</a>
 			</td></tr>";		
 		}
 		$saida .= "</tbody></table></div>";
@@ -97,13 +97,13 @@
 	else
 	{
 		if ($where == "") {
-			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br />";
+			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br /></div>";
 		} else {	
 			$saida = "<div class='alert alert-warning'>Sua pesquisa por <strong>$where</strong> não encontrou nenhum registro.<br />";
 			$saida .= "<strong>Dicas</strong><br />";
 			$saida .= "- Tente palavras menos especificas.<br />";
 			$saida .= "- Tente palavras chaves diferentes.<br />";
-			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br />";
+			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br /></div>";
 		}  
 	}
 	
@@ -115,7 +115,7 @@
 		if ($pagina_correta != 1)
 		{
 			$pag .= "<li class='prior'>
-			<a href='atorfilme_menu.php?fil=" . $fil . "&s=" . ($inicio - $exiba) .
+			<a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $fil . "&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
@@ -127,7 +127,7 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='atorfilme_menu.php?fil=" . $fil . "&s="
+				$pag .= "<li><a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $fil . "&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
@@ -141,7 +141,7 @@
 		if ($pagina_correta != $pagina)
 		{
 			$pag .= "<li class='next'>
-			<a href='atorfilme_menu.php?fil=" . $fil . "&s="
+			<a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $fil . "&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}
@@ -161,7 +161,7 @@
 				type="text" 
 				placeholder="Pesquisa de Ator por Nome" />
 			<span class="input-group-btn">
-			   <a href="#" onclick="this.href='atorfilme_menu.php?fil=' . $fil . '&q='+
+			   <a href="#" onclick="this.href='dashboard.php?tb=atorfilme&op=menu&fil=' . $fil . '&q='+
 			   document.getElementById('busca').value"
 			   class="btn btn-primary">
 			   <img class="d-inline-block align-center" src="img/find.png" width="25" height="25">
@@ -171,7 +171,7 @@
 	</div>
 	
 	<div class="col-md-3 mt-3">
-		<?php $href = "atorfilme_inc.php?fil=" . $fil;
+		<?php $href = "dashboard.php?tb=atorfilme&op=inc&fil=" . $fil;
 		?>
 		<a href="<?php echo $href?>" 
 			class="btn btn-primary pull-right h2">

@@ -6,7 +6,7 @@
     } else if (isset($_GET['fil']) && is_numeric($_GET['fil'])) {
         $fil = $_GET['fil'];
     } else {
-        header("Location: filme_menu.php");
+        header("Location: dashboard.php?tb=atorfilme&op=menu");
 		exit();		
     }   
 
@@ -36,13 +36,13 @@
 
 		if (empty($erros))
 		{
-			$q = "INSERT INTO atorfilme (Atfl_Atr_Codigo,Atfl_Fil_Codigo,Atfl_Papel,Atfl_Importancia)
+			$q = "INSERT INTO AtorFilme (Atfl_Atr_Codigo,Atfl_Fil_Codigo,Atfl_Papel,Atfl_Importancia)
 				VALUES ($ator,$fil,'$papel','$importancia')";
 				
 			$r = @mysqli_query($dbc, $q);
 			if ($r)
 			{
-				$href = "atorfilme_menu.php?fil=" . $fil;
+				$href = "dashboard.php?tb=atorfilme&op=menu&fil=" . $fil;
                 $sucesso = "<h1><strong>Sucesso!</strong></h1>
 			    <p>Seu registro foi alterado com sucesso!</p>
                 <p>Aguarde... Redirecionando!</p>";
@@ -72,10 +72,10 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?> 
 
-	<form method="post" action="atorfilme_inc.php">
+	<form method="post" action="dashboard.php?tb=atorfilme&op=inc">
 			
 		<div id="actions" align="right">
-			<?php $href = "atorfilme_menu.php?fil=" . $fil;
+			<?php $href = "dashboard.php?tb=atorfilme&op=menu&fil=" . $fil;
 			?>
 			<a class="btn btn-default" href="<?php echo $href?>">Fechar sem Salvar</a>
 				<input type="submit" class="btn btn-primary" value="Salvar" />
@@ -89,7 +89,7 @@
                     <?php
                         require_once('BD/conecta.php');
 
-                        $gnr = "select atr_codigo,atr_nome from ator";
+                        $gnr = "select atr_codigo,atr_nome from Ator";
                         
                         $rg = @mysqli_query($dbc, $gnr);            
                         while($row =  mysqli_fetch_array($rg, MYSQLI_ASSOC)) {
@@ -105,9 +105,10 @@
                                 
                 <label>Importância</label>
                 <select name="atfl_importancia" id="atfl_importancia" class="form-control w-3">                
-                    <option value="1">1</option>;
-                    <option value="2">2</option>;
-                    <option value="3">3</option>;         
+                    <option value="1">1 - Principal</option>
+                    <option value="2">2 - Vilão Principal</option>
+                    <option value="3">3 - Secondário</option>
+					<option value="3">4 - Figurante</option>					        
                 </select>    
 
                 <?php 
@@ -133,5 +134,7 @@
         <input type="hidden" name="fil" value="<?php echo $fil; ?>" />
 	</form>
 </div>		
+</div>
+</div>
 
 <?php include_once('includes/rodape.php'); ?>

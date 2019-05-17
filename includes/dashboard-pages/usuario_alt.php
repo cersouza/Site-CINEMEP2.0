@@ -4,7 +4,7 @@
 	} else if ((isset($_POST['id'])) && (is_numeric($_POST['id']))) {
 		$id = $_POST['id'];
 	} else	{
-		header("Location: usuario_menu.php");
+		header("Location: dashboard.php?tb=usuario&op=menu");
 		exit();
 	}
 	
@@ -41,7 +41,7 @@
     //Verifica se há erros
 		if (empty($erros)) {
 			//SQL de alteração
-			$q = "UPDATE usuario SET usu_nome = '$nome',usu_usuario = '$usuario',usu_senha = '$senha', usu_email = '$email' 
+			$q = "UPDATE Usuario SET usu_nome = '$nome',usu_usuario = '$usuario',usu_senha = '$senha', usu_email = '$email' 
 					WHERE usu_codigo = $id";
 				
 			$r = @mysqli_query($dbc, $q);
@@ -50,7 +50,7 @@
 			    <p>Seu registro foi alterado com sucesso!</p>
 			    <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
-	     		 CONTENT='3;URL=usuario_menu.php'>";
+	     		 CONTENT='3;URL=dashboard.php?tb=usuario&op=menu'>";
 		  } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
 				<p>Você não pode alterar o registro devido a um 
@@ -69,7 +69,7 @@
     }
         
 	//Pesquisa para exibir o registro para alteração
-	$q = "SELECT usu_codigo,usu_nome,usu_usuario,usu_senha,usu_email FROM usuario WHERE usu_codigo=$id";
+	$q = "SELECT usu_codigo,usu_nome,usu_usuario,usu_senha,usu_email FROM Usuario WHERE usu_codigo=$id";
 	$r = @mysqli_query($dbc, $q);
 	
 	if (mysqli_num_rows($r) == 1)
@@ -88,7 +88,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="usuario_alt.php">
+  <form method="post" action="dashboard.php?tb=usuario&op=alt">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=usuario&op=menu">Voltar Página Anterior</a>

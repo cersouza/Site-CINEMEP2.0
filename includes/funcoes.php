@@ -33,6 +33,19 @@ function show_msg($tipo, $msg){
 
 //Funções para Modal
 
+function mdl_addAtorFilme($filme_id){
+    echo "<div class='modal fade' id='mdl_confAlt".$com_cod."' tabindex='".-1 * $com_cod."' role='dialog' aria-labelledby='alt_cmt".$com_cod."' aria-hidden='true'>
+            <div class='modal-dialog modal-dialog-centered' role='document'>
+                <div class='modal-content'>
+
+                    ".include_once('dashboard-pages/atorfilme_inc.php')."
+                    
+                </div>
+            </div>
+        </div>";
+}
+
+
 function mdl_erro($erro){
     echo "<div class='modal fade' id='erro' tabindex='0' role='dialog' aria-labelledby='#' aria-hidden='false'>
             <div class='modal-dialog modal-dialog-centered' role='document'>

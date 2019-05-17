@@ -35,7 +35,7 @@
 		if (empty($erros))
 		{
 			//SQL de inserção
-			$q = "INSERT INTO usuario (usu_nome,usu_usuario,usu_senha,usu_email,usu_situacao)
+			$q = "INSERT INTO Usuario (usu_nome,usu_usuario,usu_senha,usu_email,usu_situacao)
 				VALUES ('$nome','$usuario','$senha','$email','Ativo')";
 				
 			$r = @mysqli_query($dbc, $q);
@@ -45,7 +45,7 @@
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
 			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=usuario_menu.php'>";
+			 CONTENT='3;URL=dashboard.php?tb=usuario&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>
@@ -70,7 +70,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?> 
 
-	<form method="post" action="usuario_inc.php">
+	<form method="post" action="dashboard.php?tb=usuario&op=inc">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=usuario&op=menu">Voltar Página Anterior</a>

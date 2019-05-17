@@ -20,7 +20,7 @@
                 
 		if (empty($erros))
 		{
-			$q = "INSERT INTO ator (atr_nome,atr_datanasc)
+			$q = "INSERT INTO Ator (atr_nome,atr_datanasc)
 				VALUES ('$nome','$datanasc')";
 				
 			$r = @mysqli_query($dbc, $q);
@@ -30,7 +30,7 @@
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
 			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=ator_menu.php'>";
+			 CONTENT='3;URL=dashboard.php?tb=ator&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>
@@ -55,7 +55,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?> 
 
-	<form method="post" action="ator_inc.php">
+	<form method="post" action="dashboard.php?tb=ator&op=inc">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=ator&op=menu">Voltar Página Anterior</a>

@@ -78,7 +78,7 @@
             
             $novoDestino = "{$pasta}/foto_arquivo_".uniqid('', true) . '.' . $extensao;
 
-			$q = "INSERT INTO filmes(Fil_Titulo,Fil_Sinopse,Fil_Foto,Fil_Lancamento,Fil_Tempo,Fil_Genero,Fil_Classificacao,Fil_Distribuidora,Fil_Situacao)
+			$q = "INSERT INTO Filmes(Fil_Titulo,Fil_Sinopse,Fil_Foto,Fil_Lancamento,Fil_Tempo,Fil_Genero,Fil_Classificacao,Fil_Distribuidora,Fil_Situacao)
 				VALUES ('$titulo','$sinopse','$novoDestino','$lancamento','$tempo',$genero,$classificacao,$distribuidora,'Ativo')";
                 
 			$r = @mysqli_query($dbc, $q);
@@ -118,7 +118,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?> 
 
-	<form method="post" action="filme_inc.php">
+	<form method="post" action="dashboard.php?tb=filme&op=inc">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=filme&op=menu">Voltar Página Anterior</a>
@@ -170,7 +170,7 @@
                     <?php
                         require_once('BD/conecta.php');
 
-                        $gnr = "select gen_codigo,gen_descricao from genero";
+                        $gnr = "select gen_codigo,gen_descricao from Genero";
                         
                         $rg = @mysqli_query($dbc, $gnr);            
                         while($row =  mysqli_fetch_array($rg, MYSQLI_ASSOC)) {
@@ -184,7 +184,7 @@
                     <?php
                         require_once('BD/conecta.php');
 
-                        $clssccc = "select cla_codigo,cla_descricao from classificacao";
+                        $clssccc = "select cla_codigo,cla_descricao from Classificacao";
 
                         $rc = @mysqli_query($dbc, $clssccc);
                         while($row2 = mysqli_fetch_array($rc,MYSQLI_ASSOC)) {
@@ -198,7 +198,7 @@
                     <?php 
                         require_once('BD/conecta.php');
 
-                        $dstrbdr = "select dis_codigo,dis_nomefantasia from distribuidora";
+                        $dstrbdr = "select dis_codigo,dis_nomefantasia from Distribuidora";
                         
                         $rds = @mysqli_query($dbc, $dstrbdr);
                         while($r3 = mysqli_fetch_array($rds,MYSQLI_ASSOC)) {

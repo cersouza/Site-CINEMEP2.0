@@ -6,7 +6,7 @@
 	} else if ((isset($_POST['id'])) && (is_numeric($_POST['id']))) {
 		$id = $_POST['id'];
 	} else {
-		header("Location: filme_menu.php");
+		header("Location: dashboard.php?tb=atorfilme&op=menu");
 		exit();
     }
     
@@ -18,11 +18,11 @@
 	if (isset($_POST['enviou']))
 	{	
 
-			$q = "delete from atorfilme where Atfl_Codigo = $id";
+			$q = "delete from AtorFilme where Atfl_Codigo = $id";
                 		
 			$r = @mysqli_query($dbc, $q);
 			if ($r) {
-		        header("Location: atorfilme_menu.php?fil=$fil");
+		        header("Location: dashboard.php?tb=atorfilme&op=menu&fil=$fil");
 		        exit();
 		    } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
@@ -32,7 +32,7 @@
 			}
     }
     
-	$q = "SELECT atfl_codigo,atfl_atr_codigo,atfl_fil_codigo,atfl_papel,atfl_importancia FROM atorfilme WHERE atfl_codigo=$id";
+	$q = "SELECT atfl_codigo,atfl_atr_codigo,atfl_fil_codigo,atfl_papel,atfl_importancia FROM AtorFilme WHERE atfl_codigo=$id";
 	$r = @mysqli_query($dbc, $q);
 	
 	if (mysqli_num_rows($r) == 1)
@@ -52,12 +52,12 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="atorfilme_exc.php">
+  <form method="post" action="dashboard.php?tb=atorfilme&op=exc">
 			
 		<div id="actions" align="right">
-            <?php $href = "atorfilme_menu.php?fil=" . $fil;
+            <?php $href = "dashboard.php?tb=atorfilme&op=menu&fil=" . $fil;
 			?>
-			<a class="btn btn-default" href="<?php echo $href?>">Fechar sem Excluir</a>
+			<a class="btn btn-default" href="<?php echo $href?>">Voltar Página Anterior</a>
 				<input type="submit" class="btn btn-warning" value="Excluir" />
 		</div>
 
@@ -69,7 +69,7 @@
                     <?php
                         require_once('BD/conecta.php');
 
-                        $gnr = "select atr_codigo,atr_nome from ator";
+                        $gnr = "select atr_codigo,atr_nome from Ator";
                         
                         $rg = @mysqli_query($dbc, $gnr);            
                         while($rw =  mysqli_fetch_array($rg, MYSQLI_ASSOC)) {
@@ -84,9 +84,10 @@
                                 
                 <label>Importância</label>
                 <select name="atfl_importancia" id="atfl_importancia" class="form-control w-3" disabled = 'True'>                
-                    <option value="1">1</option>;
-                    <option value="2">2</option>;
-                    <option value="3">3</option>;         
+					<option value="1">1 - Principal</option>
+                    <option value="2">2 - Vilão Principal</option>
+                    <option value="3">3 - Secondário</option>
+					<option value="3">4 - Figurante</option>        
                 </select>    
 
                 <?php 
@@ -112,7 +113,11 @@
 		<input type="hidden" name="enviou" value="True" />
 		<input type="hidden" name="id" value="<?php echo $row[0]; ?>" />
         <input type="hidden" name="fil" value="<?php echo $row[2]; ?>" />
-	</form> 
+	</form>
+	</div>
+	</div>
+	</div>
+	 
 		  
 <?php 
 	}

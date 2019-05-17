@@ -10,7 +10,7 @@
 	{
 		$pagina = $_GET['p'];
 	} else {
-		$sql = "SELECT COUNT(usu_codigo) FROM usuario WHERE usu_nome like '%$where%'";
+		$sql = "SELECT COUNT(usu_codigo) FROM Usuario WHERE usu_nome like '%$where%'";
 		$r = @mysqli_query($dbc, $sql);
 		$row = @mysqli_fetch_array($r, MYSQLI_NUM);
 		$qtde = $row[0];
@@ -47,7 +47,7 @@
 			break;
 	}
 	
-	$q = "SELECT usu_codigo, usu_nome, usu_usuario FROM usuario 
+	$q = "SELECT usu_codigo, usu_nome, usu_usuario FROM Usuario 
 		  WHERE usu_nome like '%$where%' ORDER BY $order_by
 		  LIMIT $inicio, $exiba";
 	
@@ -87,7 +87,7 @@
 	else
 	{
 		if ($where == "") {
-			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br />";
+			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br /></div>";
 		} else {	
 			$saida = "<div class='alert alert-warning'>Sua pesquisa por <strong>$where</strong> não encontrou nenhum registro.<br />";
 			$saida .= "<strong>Dicas</strong><br />";
@@ -105,7 +105,7 @@
 		if ($pagina_correta != 1)
 		{
 			$pag .= "<li class='prior'>
-			<a href='usuario_menu.php?s=" . ($inicio - $exiba) .
+			<a href='dashboard.php?tb=usuario&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
@@ -118,7 +118,7 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='usuario_menu.php?s="
+				$pag .= "<li><a href='dashboard.php?tb=usuario&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
@@ -132,7 +132,7 @@
 		if ($pagina_correta != $pagina)
 		{
 			$pag .= "<li class='next'>
-			<a href='usuario_menu.php?s="
+			<a href='dashboard.php?tb=usuario&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}

@@ -10,7 +10,7 @@
 	{
 		$pagina = $_GET['p'];
 	} else {
-		$sql = "SELECT COUNT(fil_codigo) FROM filmes WHERE fil_titulo like '%$where%'";
+		$sql = "SELECT COUNT(fil_codigo) FROM Filmes WHERE fil_titulo like '%$where%'";
 		$r = @mysqli_query($dbc, $sql);
 		$row = @mysqli_fetch_array($r, MYSQLI_NUM);
 		$qtde = $row[0];
@@ -44,7 +44,7 @@
 			break;
 	}
 	
-	$q = "SELECT fil_codigo, fil_titulo FROM filmes 
+	$q = "SELECT fil_codigo, fil_titulo FROM Filmes 
 		  WHERE fil_titulo like '%$where%' ORDER BY $order_by
 		  LIMIT $inicio, $exiba";
 	
@@ -73,7 +73,7 @@
 			<td class='actions'>
 			<a href='dashboard.php?tb=filme&op=alt&id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-warning'>Editar**</a>
             <a href='dashboard.php?tb=filme&op=exc&id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-danger'>Excluir**</a>
-            <a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $row['fil_codigo'] ."' class='btn btn-xs btn-primary'><strong>+</strong> Ator</a>
+			<a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $row['fil_codigo'] ."' class='btn btn-xs btn-primary'><strong>+</strong> Ator</a>			
 			</td></tr>";		
 		}
 		$saida .= "</tbody></table></div>";
@@ -81,7 +81,7 @@
 	else
 	{
 		if ($where == "") {
-			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br />";
+			$saida = "<div class='alert alert-warning w-100 text-center'>Não foi encontrado nenhum registro.<br /></div>";
 		} else {	
 			$saida = "<div class='alert alert-warning'>Sua pesquisa por <strong>$where</strong> não encontrou nenhum registro.<br />";
 			$saida .= "<strong>Dicas</strong><br />";

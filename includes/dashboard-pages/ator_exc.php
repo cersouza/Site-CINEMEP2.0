@@ -20,13 +20,13 @@
         $r = @mysqli_query($dbc, $q);
         if ($r)
         {
-            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=ator_menu.php'>";
+            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=dashboard.php?tb=ator&op=menu'>";
         } else {
             $erro = "<h1><strong>Erro!</strong></h1><p>Algo errado não está certo</p>";
         }
     } 
 
-	$q = "select atr_codigo, atr_nome, atr_datanasc from ator where atr_codigo=$id";
+	$q = "select atr_codigo, atr_nome, atr_datanasc from Ator where atr_codigo=$id";
 
 	$row = @mysqli_query($dbc, $q);
 
@@ -45,7 +45,7 @@
 					echo "<div class='alert alert-success'>$sucesso</div>";
 			?>
 
-			<form method="POST" action="ator_exc.php">
+			<form method="POST" action="dashboard.php?tb=ator&op=exc">
 			
 				<div id="actions" align="right">
 					<a class="btn btn-default" href="dashboard.php?tb=ator&op=menu">Voltar Página Anterior</a>

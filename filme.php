@@ -165,13 +165,13 @@
 
 							// Criando um Bloco para comentários (.cards)
 
-							echo "<div class='card bg-light'>
+							echo "<div class='card bg-light' id='bloco_cmt'>
 									<div class='card-header text-primary'><h2 class='card-title'>Avaliações (".$Qtd_Coment.")</h2></div>
 									<div class='card-body'>									
 								<div class='card-columns bg-light'>";
 
-							if(mysqli_num_rows($res_comentario) == 0) {
-								echo "<div class='text-center w-100'><h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2></div>";
+							if(mysqli_num_rows($res_comentario) > 0) {
+								echo "<div class='text-center m-3'><h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2></div>";								
 							}else{
 
 								while ($comentarios = mysqli_fetch_assoc($res_comentario)) {

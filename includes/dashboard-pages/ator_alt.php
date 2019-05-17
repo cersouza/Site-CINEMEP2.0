@@ -30,7 +30,7 @@
         }
         
 		if (empty($erros)) {
-			$q = "UPDATE ator SET atr_nome = '$nome', atr_Datanasc = '$datanasc' WHERE atr_codigo = $id";
+			$q = "UPDATE Ator SET atr_nome = '$nome', atr_Datanasc = '$datanasc' WHERE atr_codigo = $id";
 				
 			$r = @mysqli_query($dbc, $q);
 			if ($r) {
@@ -38,7 +38,7 @@
 			    <p>Seu registro foi alterado com sucesso!</p>
 			    <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
-	     		 CONTENT='3;URL=ator_menu.php'>";
+	     		 CONTENT='3;URL=dashboard.php?tb=ator&op=menu.php'>";
 		    } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
 				<p>Você não pode alterar o registro devido a um 
@@ -56,7 +56,7 @@
 		}
     }
     
-	$q = "SELECT atr_codigo,atr_nome,atr_Datanasc FROM ator WHERE atr_codigo=$id";
+	$q = "SELECT atr_codigo,atr_nome,atr_Datanasc FROM Ator WHERE atr_codigo=$id";
 	$r = @mysqli_query($dbc, $q);
 	
 	if (mysqli_num_rows($r) == 1)
@@ -75,7 +75,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="ator_alt.php">
+  <form method="post" action="dashboard.php?tb=ator&op=alt">
 			
 		<div id="actions" align="right">
 				<a class="btn btn-default" href="dashboard.php?tb=ator&op=menu">Voltar Página Anterior</a>

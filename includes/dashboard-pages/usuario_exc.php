@@ -7,7 +7,7 @@
 		if (isset($_POST['id'])) {
 			$id = $_POST['id'];
 		} else {
-			header("Location: usuario_menu.php");
+			header("Location: dashboard.php?tb=usuario&op=menu");
 			exit();
 		}
     }
@@ -15,18 +15,18 @@
     //Verifica se há erros
     if (isset($_POST['enviou']))
     {
-        $q = "delete from usuario where usu_codigo=$id";
+        $q = "delete from Usuario where usu_codigo=$id";
             
         $r = @mysqli_query($dbc, $q);
         if ($r)
         {
-            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=usuario_menu.php'>";
+            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=dashboard.php?tb=usuario&op=menu'>";
         } else {
             $erro = "<h1><strong>Erro!</strong></h1><p>Algo errado não está certo</p>";
         }
     } 
 
-	$q = "select usu_codigo,usu_nome,usu_usuario,usu_senha,usu_email from usuario where usu_codigo=$id";
+	$q = "select usu_codigo,usu_nome,usu_usuario,usu_senha,usu_email from Usuario where usu_codigo=$id";
 
 	$row = @mysqli_query($dbc, $q);
 
@@ -45,7 +45,7 @@
 					echo "<div class='alert alert-success'>$sucesso</div>";
 			?>
 
-			<form method="POST" action="usuario_exc.php">
+			<form method="POST" action="dashboard.php?tb=usuario&op=exc">
 			
 				<div id="actions" align="right">
 					<a class="btn btn-default" href="dashboard.php?tb=usuario&op=menu">Voltar Página Anterior</a>

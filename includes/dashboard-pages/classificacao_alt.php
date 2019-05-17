@@ -33,7 +33,7 @@
 			    <p>Seu registro foi alterado com sucesso!</p>
 			    <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
-	     		 CONTENT='3;URL=classificacao_menu.php'>";
+	     		 CONTENT='3;dashboard.php?tb=classificacao&op=menu'>";
 		    } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
 				<p>Você não pode alterar o registro devido a um 
