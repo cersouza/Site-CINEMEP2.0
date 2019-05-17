@@ -44,7 +44,7 @@
 	}
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
     <h1 class="page-header">Cadastro de Ator</h1>
 			
 	<?php
@@ -58,8 +58,8 @@
 	<form method="post" action="ator_inc.php">
 			
 		<div id="actions" align="right">
-			<a class="btn btn-default" href="ator_menu.php">Fechar sem Salvar</a>
-				<input type="submit" class="btn btn-primary" value="Salvar" />
+			<a class="btn btn-default" href="dashboard.php?tb=ator&op=menu">Voltar Página Anterior</a>
+			<input type="submit" class="btn btn-primary" value="Salvar" />
 		</div>
 				
 		<div class="row">

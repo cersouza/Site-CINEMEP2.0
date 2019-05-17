@@ -1,12 +1,12 @@
 <?php 
 include_once("includes/cabecalho.php");            
 ?>    
-    <div class="row p-2">        
+    <div class="row py-2">        
         <div class="col-md-3"> 
             <?php include_once("includes/menu-lateral.php");?>
         </div>
 
-        <div class="col-md-9 d-flex justify-content-center align-items-center p-5"> 
+        <div class="col-md-9 d-flex justify-content-center align-items-center"> 
             <?php 
                 if((isset($_GET["tb"])) && (isset($_GET["op"]))){
 

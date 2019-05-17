@@ -56,10 +56,10 @@
 		<thead>
 			<tr>
 				<th width='10%'>
-				<a href='classificacao_menu.php?ordem=cod'>
+				<a href='dashboard.php?tb=classificacao&op=menu&ordem=cod'>
                 Código</a></th>
                 <th width='60%'>
-				<a href='classificacao_menu.php?ordem=des'>
+				<a href='dashboard.php?tb=classificacao&op=menu&ordem=des'>
 				Descrição</a></th>
 				<th width='30%'>Ações</th>
 			</tr>
@@ -71,8 +71,8 @@
 			<td>" . $row['cla_codigo'] . "</td> 
             <td>" . $row['cla_descricao'] . "</td>
 			<td class='actions'>
-			<a href='classificacao_alt.php?id=" . $row['cla_codigo'] ."' class='btn btn-xs btn-warning'>Editar</a>
-			<a href='classificacao_exc.php?id=" . $row['cla_codigo'] ."' class='btn btn-xs btn-danger'>Excluir</a>
+			<a href='dashboard.php?tb=classificacao&op=alt&id=" . $row['cla_codigo'] ."' class='btn btn-xs btn-warning'>Editar</a>
+			<a href='dashboard.php?tb=classificacao&op=exc&id=" . $row['cla_codigo'] ."' class='btn btn-xs btn-danger'>Excluir</a>
 			</td></tr>";		
 		}
 		$saida .= "</tbody></table></div>";
@@ -80,13 +80,13 @@
 	else
 	{
 		if ($where == "") {
-			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br />";
+			$saida = "<div class='alert alert-warning'>Não foi encontrado nenhum registro.<br /></div>";
 		} else {	
 			$saida = "<div class='alert alert-warning'>Sua pesquisa por <strong>$where</strong> não encontrou nenhum registro.<br />";
 			$saida .= "<strong>Dicas</strong><br />";
 			$saida .= "- Tente palavras menos especificas.<br />";
 			$saida .= "- Tente palavras chaves diferentes.<br />";
-			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br />";
+			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br /></div>";
 		}  
 	}
 	
@@ -98,7 +98,7 @@
 		if ($pagina_correta != 1)
 		{
 			$pag .= "<li class='prior'>
-			<a href='classificacao_menu.php?s=" . ($inicio - $exiba) .
+			<a href='dashboard.php?tb=classificacao&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
@@ -110,7 +110,7 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='classificacao_menu.php?s="
+				$pag .= "<li><a href='dashboard.php?tb=classificacao&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
@@ -124,7 +124,7 @@
 		if ($pagina_correta != $pagina)
 		{
 			$pag .= "<li class='next'>
-			<a href='classificacao_menu.php?s="
+			<a href='dashboard.php?tb=classificacao&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}
@@ -136,7 +136,7 @@
 	
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
 <div class="row">
 	<div class="col-md-3 mt-3"><h2>Classificação</h2></div>
 	<div class="col-md-6 mt-3">	
@@ -145,7 +145,7 @@
 				type="text" 
 				placeholder="Pesquisa de Classificação por Descrição" />
 			<span class="input-group-btn">
-			   <a href="#" onclick="this.href='classificacao_menu.php?q='+
+			   <a href="#" onclick="this.href='dashboard.php?tb=classificacao&op=menu&q='+
 			   document.getElementById('busca').value"
 			   class="btn btn-primary">
 			   <img class="d-inline-block align-center" src="img/find.png" width="25" height="25">
@@ -155,7 +155,7 @@
 	</div>
 	
 	<div class="col-md-3 mt-3">
-		<a href="classificacao_inc.php" 
+		<a href="dashboard.php?tb=classificacao&op=inc" 
 		class="btn btn-primary pull-right h2">
 		Inserir Classificação</a>
 	</div>
@@ -173,6 +173,8 @@
 		</ul>
 	</div>
 			
+</div>
+</div>
 </div>
 		  
 <?php include_once('includes/rodape.php'); ?>

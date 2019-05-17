@@ -59,7 +59,7 @@
 	}
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
     <h1 class="page-header">Cadastro de Usuário</h1>
 			
 	<?php
@@ -73,7 +73,7 @@
 	<form method="post" action="usuario_inc.php">
 			
 		<div id="actions" align="right">
-			<a class="btn btn-default" href="usuario_menu.php">Fechar sem Salvar</a>
+			<a class="btn btn-default" href="dashboard.php?tb=usuario&op=menu">Voltar Página Anterior</a>
 				<input type="submit" class="btn btn-primary" value="Salvar" />
 		</div>
 				
@@ -113,6 +113,8 @@
 
  		<input type="hidden" name="enviou" value="True" />
 	</form>
+</div>
+</div>
 </div>	
 
 <?php include_once('includes/rodape.php'); ?>

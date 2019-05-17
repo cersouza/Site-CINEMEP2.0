@@ -152,7 +152,7 @@
 	}
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
 <div class="row">
 	<div class="col-md-3 mt-3"><h2>Ator por filme</h2></div>
 	<div class="col-md-6 mt-3">	
@@ -191,6 +191,8 @@
 		</ul>
 	</div>
 			
+</div>
+</div>
 </div>
 		  
 <?php include_once('includes/rodape.php'); ?>

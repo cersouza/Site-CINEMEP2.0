@@ -56,10 +56,10 @@
 		<thead>
 			<tr>
 				<th width='10%'>
-				<a href='filme_menu.php?ordem=cod'>
+				<a href='dashboard.php?tb=filme&op=menu&ordem=cod'>
                 Código</a></th>
                 <th width='50%'>
-				<a href='filme_menu.php?ordem=tit'>
+				<a href='dashboard.php?tb=filme&op=menu&ordem=tit'>
                 Título</a></th>
 				<th width='40%'>Ações</th>
 			</tr>
@@ -71,9 +71,9 @@
 			<td>" . $row['fil_codigo'] . "</td> 
             <td>" . $row['fil_titulo'] . "</td>
 			<td class='actions'>
-			<a href='filme_alt.php?id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-warning'>Editar</a>
-            <a href='file_exc.php?id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-danger'>Excluir</a>
-            <a href='atorfilme_menu.php?fil=" . $row['fil_codigo'] ."' class='btn btn-xs btn-primary'>Ator</a>
+			<a href='dashboard.php?tb=filme&op=alt&id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-warning'>Editar**</a>
+            <a href='dashboard.php?tb=filme&op=exc&id=" . $row['fil_codigo'] ."' class='btn btn-xs btn-danger'>Excluir**</a>
+            <a href='dashboard.php?tb=atorfilme&op=menu&fil=" . $row['fil_codigo'] ."' class='btn btn-xs btn-primary'><strong>+</strong> Ator</a>
 			</td></tr>";		
 		}
 		$saida .= "</tbody></table></div>";
@@ -87,7 +87,7 @@
 			$saida .= "<strong>Dicas</strong><br />";
 			$saida .= "- Tente palavras menos especificas.<br />";
 			$saida .= "- Tente palavras chaves diferentes.<br />";
-			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br />";
+			$saida .= "- Confira a ortografia das palavras e se elas foram acentuadas corretamentes.<br /></div>";
 		}  
 	}
 	
@@ -99,7 +99,7 @@
 		if ($pagina_correta != 1)
 		{
 			$pag .= "<li class='prior'>
-			<a href='filme_menu.php?s=" . ($inicio - $exiba) .
+			<a href='dashboard.php?tb=filme&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
@@ -111,7 +111,7 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='filme_menu.php?s="
+				$pag .= "<li><a href='dashboard.php?tb=filme&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
@@ -125,7 +125,7 @@
 		if ($pagina_correta != $pagina)
 		{
 			$pag .= "<li class='next'>
-			<a href='filme_menu.php?s="
+			<a href='dashboard.php?tb=filme&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}
@@ -136,7 +136,7 @@
 	}
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
 <div class="row">
 	<div class="col-md-3 mt-3"><h2>Filme</h2></div>
 	<div class="col-md-6 mt-3">	
@@ -145,7 +145,7 @@
 				type="text" 
 				placeholder="Pesquisa de Filme pelo Título" />
 			<span class="input-group-btn">
-			   <a href="#" onclick="this.href='filme_menu.php?q='+
+			   <a href="#" onclick="this.href='dashboard.php?tb=filme&op=menu&q='+
 			   document.getElementById('busca').value"
 			   class="btn btn-primary">
 			   <img class="d-inline-block align-center" src="img/find.png" width="25" height="25">
@@ -155,7 +155,7 @@
 	</div>
 	
 	<div class="col-md-3 mt-3">
-		<a href="filme_inc.php" 
+		<a href="dashboard.php?tb=filme&op=inc" 
 		class="btn btn-primary pull-right h2">
 		Inserir Filme</a>
 	</div>
@@ -173,6 +173,8 @@
 		</ul>
 	</div>
 			
+</div>
+</div>
 </div>
 		  
 <?php include_once('includes/rodape.php'); ?>

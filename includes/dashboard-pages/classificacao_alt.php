@@ -59,7 +59,7 @@
 		$row = mysqli_fetch_array($r, MYSQLI_NUM);
 ?>	
 
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
     <h1 class="page-header">Alteração de Classificação</h1>
 			
 	<?php
@@ -73,7 +73,7 @@
   <form method="post" action="classificacao_alt.php">
 			
 		<div id="actions" align="right">
-			<a class="btn btn-default" href="classificacao_menu.php">Fechar sem Salvar</a>
+				<a class="btn btn-default" href="dashboard.php?tb=classificacao&op=menu">Voltar Página Anterior</a>
 				<input type="submit" class="btn btn-warning" value="Salvar Alteração" />
 		</div>
 
@@ -88,7 +88,10 @@
 
 		<input type="hidden" name="enviou" value="True" />
 		<input type="hidden" name="id" value="<?php echo $row[0]; ?>" />
-	</form> 
+	</form>
+	</div>
+	</div> 
+	</div>
 		  
 <?php 
 	}
