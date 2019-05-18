@@ -27,7 +27,7 @@
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
 			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=genero_menu.php'>";
+			 CONTENT='3;URL=dashboard.php?tb=genero&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>
@@ -52,7 +52,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?> 
 
-	<form method="post" action="genero_inc.php">
+	<form method="post" action="dashboard.php?tb=genero&op=inc">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=genero&op=menu">Voltar Página Anterior</a>

@@ -9,7 +9,7 @@
 		if (isset($_POST['id'])) {
 			$id = $_POST['id'];
 		} else {
-			header("Location: distribuidora_menu.php");
+			header("Location: dashboard.php?tb=distribuidora&op=menu");
 			exit();
 		}
     }
@@ -22,7 +22,7 @@
         $r = @mysqli_query($dbc, $q);
         if ($r)
         {
-            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=distribuidora_menu.php'>";
+            echo "<meta HTTP-EQUIV='refresh' CONTENT='0;URL=dashboard.php?tb=distribuidora&op=menu'>";
         } else {
             $erro = "<h1><strong>Erro!</strong></h1><p>Algo errado não está certo</p>";
         }
@@ -48,7 +48,7 @@
 					echo "<div class='alert alert-success'>$sucesso</div>";
 			?>
 
-			<form method="POST" action="distribuidora_exc.php">
+			<form method="POST" action="dashboard.php?tb=distribuidora&op=exc">
 			
 				<div id="actions" align="right">
                     <a class="btn btn-default" href="dashboard.php?tb=distribuidora&op=menu">Voltar Página Anterior</a>

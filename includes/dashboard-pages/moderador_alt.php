@@ -104,7 +104,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="moderador_alt.php">
+  <form method="post" action="dashboard.php?tb=moderador&op=alt">
 			
 		<div id="actions" align="right">
 		<a class="btn btn-default" href="dashboard.php?tb=moderador&op=menu">Voltar Página Anterior</a>

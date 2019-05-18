@@ -87,7 +87,7 @@
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
 			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=distribuidora_menu.php'>";
+			 CONTENT='3;URL=dashboard.php?tb=distribuidora&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>

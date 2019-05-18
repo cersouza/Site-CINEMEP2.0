@@ -87,7 +87,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="atorfilme_alt.php">
+  <form method="post" action="dashboard.php?tb=atorfilme&op=alt">
 			
 		<div id="actions" align="right">
         <?php $href = "dashboard.php?tb=atorfilme&op=menu&fil=" . $fil;

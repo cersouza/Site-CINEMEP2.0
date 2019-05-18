@@ -6,7 +6,7 @@
 	} else if ((isset($_POST['id'])) && (is_numeric($_POST['id']))) {
 		$id = $_POST['id'];
 	} else {
-		header("Location: classificacao_menu.php");
+		header("Location: dashboard.php?tb=classificacao&op=menu");
 		exit();
 	}
 	
@@ -70,7 +70,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="classificacao_alt.php">
+  <form method="post" action="dashboard.php?tb=classificacao&op=alt">
 			
 		<div id="actions" align="right">
 				<a class="btn btn-default" href="dashboard.php?tb=classificacao&op=menu">Voltar Página Anterior</a>

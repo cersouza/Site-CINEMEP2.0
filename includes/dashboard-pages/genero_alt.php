@@ -6,7 +6,7 @@
 	} else if ((isset($_POST['id'])) && (is_numeric($_POST['id']))) {
 		$id = $_POST['id'];
 	} else	{
-		header("Location: genero_menu.php");
+		header("Location: dashboard.php?tb=genero&op=menu");
 		exit();
 	}
 	
@@ -33,7 +33,7 @@
 			    <p>Seu registro foi alterado com sucesso!</p>
 			    <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
-	     		 CONTENT='3;URL=genero_menu.php'>";
+	     		 CONTENT='3;URL=dashboard.php?tb=genero&op=menu'>";
 		    } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
 				<p>Você não pode alterar o registro devido a um 
@@ -70,7 +70,7 @@
 			echo "<div class='alert alert-success'>$sucesso</div>";
 	?>
 	
-  <form method="post" action="genero_alt.php">
+  <form method="post" action="dashboard.php?tb=genero&op=alt">
 			
 		<div id="actions" align="right">
 			<a class="btn btn-default" href="dashboard.php?tb=genero&op=menu">Voltar Página Anterior</a>

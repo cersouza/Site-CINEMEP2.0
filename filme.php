@@ -116,6 +116,7 @@
 						<div class="row">
 							<div class="col-md-4 d-flex justify-content-center align-items-center">
 								<img class="rounded" src="img/filmes/capa-capita-marvel.jpg" width="auto" height="400">
+								<!-- img class="card-img-top" src="img/filmes/wallpaper-capita-marvel.jpg" -->
 							</div>
 						
 							<div class="col-md-8">
@@ -167,13 +168,14 @@
 
 							echo "<div class='card bg-light' id='bloco_cmt'>
 									<div class='card-header text-primary'><h2 class='card-title'>Avaliações (".$Qtd_Coment.")</h2></div>
-									<div class='card-body'>									
-								<div class='card-columns bg-light'>";
+									<div class='card-body'>";
 
-							if(mysqli_num_rows($res_comentario) > 0) {
+							if(mysqli_num_rows($res_comentario) < 0) {
+								echo "<div class='card-columns bg-light d-flex justify-content-center'>";
 								echo "<div class='text-center m-3'><h2 class='text-muted'>Seja o primeiro a comentar clicando abaixo!</h2></div>";								
 							}else{
 
+								echo "<div class='card-columns bg-light'>";
 								while ($comentarios = mysqli_fetch_assoc($res_comentario)) {
 
 								$com_cod = $comentarios["Com_Codigo"];

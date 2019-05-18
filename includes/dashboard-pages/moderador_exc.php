@@ -47,7 +47,7 @@
 					echo "<div class='alert alert-success'>$sucesso</div>";
 			?>
 
-			<form method="POST" action="usuario_exc.php">
+			<form method="POST" action="dashboard.php?tb=moderador&op=exc">
 			
 				<div id="actions" align="right">
 					<a class="btn btn-default" href="dashboard.php?tb=moderador&op=menu">Voltar</a>

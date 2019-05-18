@@ -9,7 +9,7 @@
 		if (isset($_POST['id'])) {
 			$id = $_POST['id'];
 		} else {
-			header("Location: genero_menu.php");
+			header("Location: dashboard.php?tb=genero&op=menu");
 			exit();
 		}
     }
@@ -47,7 +47,7 @@
 					echo "<div class='alert alert-success'>$sucesso</div>";
 			?>
 
-			<form method="POST" action="genero_exc.php">
+			<form method="POST" action="dashboard.php?tb=genero&op=exc">
 			
 				<div id="actions" align="right">
 					<a class="btn btn-default" href="dashboard.php?tb=genero&op=menu">Voltar Página Anterior</a>

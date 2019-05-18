@@ -52,7 +52,7 @@
         
         $foto = $_FILES['fil_foto']['tmp_name'];
         $tamanho_permitido = 1024000; //1 MB
-        $pasta = 'C:/Xampp/htdocs/Site-CINEMEP/img';
+        $pasta = 'img';
 
         if (!empty($foto)){
             $file = getimagesize($foto);
@@ -93,7 +93,7 @@
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
 			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=filme_menu.php'>";
+			 CONTENT='3;URL=dashboard.php?tb=filme&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>
@@ -170,7 +170,7 @@
                     <?php
                         require_once('BD/conecta.php');
 
-                        $gnr = "select gen_codigo,gen_descricao from Genero";
+                        $gnr = "select gen_codigo,gen_descricao from Genero Order By gen_descricao";
                         
                         $rg = @mysqli_query($dbc, $gnr);            
                         while($row =  mysqli_fetch_array($rg, MYSQLI_ASSOC)) {
