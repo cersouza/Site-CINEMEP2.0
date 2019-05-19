@@ -1,14 +1,60 @@
-<?php include_once("includes/cabecalho.php"); 
-    include_once("BD/conecta.php");?>	
+<?php
+include_once("includes/cabecalho.php"); 
+include_once("BD/conecta.php");
+
+if(isset($_GET['gen'])){
+    $gen = $_GET['gen'];
+}
+
+?>	
     
     <div class="row">
         <div class="col-md-12"> 
-            
+            <nav class="navbar navbar-light navbar-expand-lg bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#opcoes-lista-filmes" aria-controls="opcoes-lista-filmes" aria-expanded="false" aria-label="Opções de Pesquisa">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="opcoes-lista-filmes">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="lista-filmes.php">Todos</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#opcoes-class" role="button" aria-expanded="false" aria-controls="opcoes-class">
+                            Gêneros
+                        <div class="collapse" id="opcoes-class">
+                        <div class="d-flex">                        
+                        <?php 
+                            $query_generos = "Select G.* From Genero G Inner Join Filmes F On (G.Gen_Codigo = F.Fil_Genero) Group By G.Gen_Codigo Order By Gen_Descricao;";
+
+                            $res_generos = mysqli_query($dbc, $query_generos);                            
+                            
+                            while($generos = mysqli_fetch_assoc($res_generos)){
+                        ?>  
+                            <?php 
+                            $q_gen_filme = "Select Count(Fil_Codigo) as 'qtd_fil' From Filmes Where Fil_Genero = ".$generos['Gen_Codigo'];
+                            
+                            $res_gen_filme = mysqli_query($dbc, $q_gen_filme);
+
+                            $gen_filme = mysqli_fetch_assoc($res_gen_filme);
+                                
+                            ?>                         
+                            <a class="nav-link <?= ($gen == $generos['Gen_Descricao'])? 'active':''; ?>" href="lista-filmes.php?gen=<?= $generos['Gen_Descricao'];?>"><?= $generos['Gen_Descricao']." (".$gen_filme['qtd_fil'].")";?></a>                            
+                        <?php } ?>
+                        </div>
+                        </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>   
+                    
             <div class="card bg-light">
-                <div class="card-header text-primary"><h3 class="card-title text-capitalize">Filmes disponíveis</h3></div>
+                <div class="card-header text-primary"><h3 class="card-title text-capitalize"><?= (isset($gen)?$generos['Gen_Descricao']:'Ver todos os filmes')?></h3></div>
                     <div class="card-body">
 
-                        <div class="card-group bg-light">
+                        <div class="card-colmn bg-light">
 
                         <?php 
                             //info Filme
@@ -34,13 +80,13 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <img class="rounded" src="<?= $filme["Fil_Foto"];?>" width="auto" height="250">
                                         </div>
                                         <?php date_default_timezone_set("America/Sao_Paulo");?>  
-                                        <div class="col-md-8">
-                                            <small class="text-small"><?= $filme["Fil_Tempo"] . " / " .$filme["Gen_Descricao"]. " / ". date('d \d\e M\, Y', strtotime($filme["Fil_Lancamento"]));?></small>
-                                            <h3 class="card-title"><?= $filme["Fil_Titulo"]." <img src='img/classificacao_".$filme["Cla_Codigo"].".png' style='height:32px; width:auto;'/>";?></h3>
+                                        <div class="col-md-10">
+                                            <small class="text-small"><?= $filme["Fil_Tempo"] . " / <a href=lista-filmes.php?gen=".$filme['Gen_Descricao'].">".$filme["Gen_Descricao"]. "</a> / ". date('d \d\e M\, Y', strtotime($filme["Fil_Lancamento"]));?></small>
+                                            <h3 class="card-title text-capitalize"><?= $filme["Fil_Titulo"]." <img src='img/classificacao_".$filme["Cla_Codigo"].".png' style='height:32px; width:auto;'/>";?></h3>
                                             <p class="card-text"><?= $filme["Fil_Sinopse"];?></p>
                                             <p class="card-text text-warning">
                                                 <?php 

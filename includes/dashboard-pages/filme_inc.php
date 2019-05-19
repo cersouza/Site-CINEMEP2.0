@@ -52,7 +52,9 @@
         
         $foto = $_FILES['fil_foto']['tmp_name'];
         $tamanho_permitido = 1024000; //1 MB
-        $pasta = 'img';
+        //$pasta = 'img/filmes';
+        $pasta = 'C:\Users\souza\Desktop\Caio Eduardo\UNIMEP\SITES\Site-CINEMEP\img\filmes';
+        
 
         if (!empty($foto)){
             $file = getimagesize($foto);
@@ -92,7 +94,7 @@
 			  $sucesso = "<h1><strong>Sucesso!</strong></h1>
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
-			 echo "<meta HTTP-EQUIV='refresh' 
+			echo "<meta HTTP-EQUIV='refresh' 
 			 CONTENT='3;URL=dashboard.php?tb=filme&op=menu'>";
 			}
 		} else {

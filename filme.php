@@ -114,8 +114,8 @@
 					<div class="card-body">
 
 						<div class="row">
-							<div class="col-md-4 d-flex justify-content-center align-items-center">
-								<img class="rounded" src="img/filmes/capa-capita-marvel.jpg" width="auto" height="400">
+							<div class="col-md-4 d-flex justify-content-center align-items-center">								
+								<img class="rounded" src="<?= $filme["Fil_Foto"];?>" width="auto" height="400">
 								<!-- img class="card-img-top" src="img/filmes/wallpaper-capita-marvel.jpg" -->
 							</div>
 						
