@@ -17,8 +17,8 @@ if(isset($_GET['gen'])){
 
                 <div class="collapse navbar-collapse" id="opcoes-lista-filmes">
                     <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="lista-filmes.php">Todos</a>
+                        <li class="nav-item">
+                            <a class="nav-link <?= (!(isset($gen)))? 'active':''; ?>" href="lista-filmes.php">Todos</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#opcoes-class" role="button" aria-expanded="false" aria-controls="opcoes-class">
@@ -26,10 +26,11 @@ if(isset($_GET['gen'])){
                         <div class="collapse" id="opcoes-class">
                         <div class="d-flex">                        
                         <?php 
-                            $query_generos = "Select G.* From Genero G Inner Join Filmes F On (G.Gen_Codigo = F.Fil_Genero) Group By G.Gen_Codigo Order By Gen_Descricao;";
+                            //$query_generos = "Select G.* From Genero G Inner Join Filmes F On (G.Gen_Codigo = F.Fil_Genero) Group By G.Gen_Codigo Order By Gen_Descricao;";
+                            $query_generos = "Select * From Genero Order By Gen_Descricao;";
 
-                            $res_generos = mysqli_query($dbc, $query_generos);                            
-                            
+                            $res_generos = mysqli_query($dbc, $query_generos);  
+
                             while($generos = mysqli_fetch_assoc($res_generos)){
                         ?>  
                             <?php 
@@ -38,6 +39,8 @@ if(isset($_GET['gen'])){
                             $res_gen_filme = mysqli_query($dbc, $q_gen_filme);
 
                             $gen_filme = mysqli_fetch_assoc($res_gen_filme);
+
+                            if(isset($gen)) if($gen == $generos['Gen_Descricao']) $titulo = $generos['Gen_Descricao'];
                                 
                             ?>                         
                             <a class="nav-link <?= ($gen == $generos['Gen_Descricao'])? 'active':''; ?>" href="lista-filmes.php?gen=<?= $generos['Gen_Descricao'];?>"><?= $generos['Gen_Descricao']." (".$gen_filme['qtd_fil'].")";?></a>                            
@@ -45,16 +48,19 @@ if(isset($_GET['gen'])){
                         </div>
                         </div>
                         </li>
-
+                        <form class="form-inline" method="GET" action="lista-filmes.php">
+                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Pesquisar Filme" aria-label="Pesquisar">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
+                        </form>
                     </ul>
                 </div>
             </nav>   
                     
             <div class="card bg-light">
-                <div class="card-header text-primary"><h3 class="card-title text-capitalize"><?= (isset($gen)?$generos['Gen_Descricao']:'Ver todos os filmes')?></h3></div>
+                <div class="card-header text-primary"><h3 class="card-title text-capitalize"><?= (isset($gen))? $titulo:'Ver todos os filmes'?></h3></div>
                     <div class="card-body">
 
-                        <div class="card-colmn bg-light">
+                        <div class="card-column bg-light">
 
                         <?php 
                             //info Filme
@@ -62,10 +68,19 @@ if(isset($_GET['gen'])){
                                                 from Filmes F
                                                 inner join Genero G on (F.Fil_Genero = G.Gen_Codigo)
                                                 inner join Classificacao C on (F.Fil_Classificacao = C.Cla_Codigo)
-                                                inner join Distribuidora D on (F.Fil_Distribuidora = D.Dis_Codigo);";
+                                                inner join Distribuidora D on (F.Fil_Distribuidora = D.Dis_Codigo)";
+                            if((isset($gen)) && ($gen != "")) $query_filme .= "Where G.Gen_Descricao = '$gen'";
+                            
+                            if(isset($_GET["q"]))
+                            {
+                            $qtitulo = $_GET["q"];
+                            if ($qtitulo != "") $query_filme .= "Where F.Fil_Titulo Like '%$qtitulo%' ";
+                            }
 
                             $res_filme = mysqli_query($dbc, $query_filme);                            
                             
+                            if(mysqli_num_rows($res_filme) > 0){
+
                             while($filme = mysqli_fetch_assoc($res_filme)){
 
                                 //info Nota
@@ -80,23 +95,26 @@ if(isset($_GET['gen'])){
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-2 d-flex align-items-center">
                                             <img class="rounded" src="<?= $filme["Fil_Foto"];?>" width="auto" height="250">
                                         </div>
                                         <?php date_default_timezone_set("America/Sao_Paulo");?>  
                                         <div class="col-md-10">
                                             <small class="text-small"><?= $filme["Fil_Tempo"] . " / <a href=lista-filmes.php?gen=".$filme['Gen_Descricao'].">".$filme["Gen_Descricao"]. "</a> / ". date('d \d\e M\, Y', strtotime($filme["Fil_Lancamento"]));?></small>
-                                            <h3 class="card-title text-capitalize"><?= $filme["Fil_Titulo"]." <img src='img/classificacao_".$filme["Cla_Codigo"].".png' style='height:32px; width:auto;'/>";?></h3>
+                                            <h3 class="card-title text-uppercase"><?= $filme["Fil_Titulo"]." <img src='img/classificacao_".$filme["Cla_Codigo"].".png' style='height:32px; width:auto;'/>";?></h3>
                                             <p class="card-text"><?= $filme["Fil_Sinopse"];?></p>
                                             <p class="card-text text-warning">
                                                 <?php 
                                                     if ($nota_usu["media_avalicao"] != 0){
-                                                        echo "<strong>Nota:</strong>";
+                                                        $nota_star = "<div class='container p-0 m-0 text-warning'> <strong>Nota: </strong>";
                                                     $nota_filme = round($nota_usu["media_avalicao"], 0);
 
                                                         for($i = 0; $i < $nota_filme; $i++){
-                                                                echo "<img src='img/star.png' style='height:24px; width:auto;'/>";
-                                                        }                                                         
+                                                            $nota_star .= "<img src='img/star.png' style='height:24px; width:auto;'/>";
+                                                        }
+                                                        
+                                                        $nota_star .= "</div>";
+                                                        echo $nota_star;
                                                 }else{
                                                     echo "<strong>Ainda não Avaliado!</strong>";
                                                 }
@@ -104,13 +122,15 @@ if(isset($_GET['gen'])){
 
                                                 ?>
                                                 <br /><br />
-                                                <a href="filme.php?id=<?= $filme["Fil_Codigo"];?>"><button class="btn btn-primary">Ver Mais!</button></a>
+                                                <a href="filme.php?id=<?= $filme["Fil_Codigo"];?>"><button class="btn btn-primary">Ver Mais</button></a>
                                             </p>            
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>                            
+                        <?php }//fim While
+                        }//fim IF
+                        else echo "<div class='card'><div class='card-body d-flex justify-content-center'><p class='text-secondary m-0'>Não há filmes cadastrados com o Gênero ou Título informado.</p></div></div></div>" ?>                            
                             
                         </div>
 
