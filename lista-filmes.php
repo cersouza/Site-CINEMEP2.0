@@ -5,6 +5,9 @@ include_once("BD/conecta.php");
 if(isset($_GET['gen'])){
     $gen = $_GET['gen'];
 }
+if(isset($_GET['ord'])){
+    $ord = $_GET['ord'];
+}
 
 ?>	
     
@@ -48,6 +51,26 @@ if(isset($_GET['gen'])){
                         </div>
                         </div>
                         </li>
+
+                        <li class="nav-item mx-2">
+                            <div class="dropdown show">
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Ordenar
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <!--a class="dropdown-item" href="#">Melhores Avaliados</a>
+                                    <a class="dropdown-item" href="#">Menos Avaliados</a -->
+                                    <a class="dropdown-item" href="lista-filmes.php?ord=data DESC">Mais Recentes</a>
+                                    <a class="dropdown-item" href="lista-filmes.php?ord=data ASC">Mais Antigos</a>
+                                    <a class="dropdown-item" href="lista-filmes.php?ord=til ASC">Nome (A-Z)</a>
+                                    <a class="dropdown-item" href="lista-filmes.php?ord=til DESC">Nome (Z-A)</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        
+
                         <form class="form-inline" method="GET" action="lista-filmes.php">
                             <input class="form-control mr-sm-2" type="search" name="q" placeholder="Pesquisar Filme" aria-label="Pesquisar">
                             <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Pesquisar</button>
@@ -69,13 +92,35 @@ if(isset($_GET['gen'])){
                                                 inner join Genero G on (F.Fil_Genero = G.Gen_Codigo)
                                                 inner join Classificacao C on (F.Fil_Classificacao = C.Cla_Codigo)
                                                 inner join Distribuidora D on (F.Fil_Distribuidora = D.Dis_Codigo)";
-                            if((isset($gen)) && ($gen != "")) $query_filme .= "Where G.Gen_Descricao = '$gen'";
+                            if((isset($gen)) && ($gen != "")) $query_filme .= " Where G.Gen_Descricao = '$gen'";
+                            
+                            
+                            
                             
                             if(isset($_GET["q"]))
                             {
                             $qtitulo = $_GET["q"];
-                            if ($qtitulo != "") $query_filme .= "Where F.Fil_Titulo Like '%$qtitulo%' ";
+                            if ($qtitulo != "") $query_filme .= " Where F.Fil_Titulo Like '%$qtitulo%' ";
                             }
+
+                            //Ordenando a Query
+                            if((isset($ord)) && ($ord != "")){
+                                
+                                $q_ord = "";
+                                
+                                switch ($ord){
+                                    case "til ASC": $q_ord = "F.Fil_Titulo ASC";
+                                        break;
+                                    case "til DESC": $q_ord = "F.Fil_Titulo DESC";
+                                        break;  
+                                    case "data ASC": $q_ord = "F.Fil_Lancamento ASC";
+                                        break;
+                                    case "data DESC": $q_ord = "F.Fil_Lancamento DESC";
+                                        break;
+                                }                        
+                                
+                                $query_filme .= " Order By $q_ord";  
+                            } 
 
                             $res_filme = mysqli_query($dbc, $query_filme);                            
                             

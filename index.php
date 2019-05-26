@@ -1,11 +1,44 @@
 <?php include_once("includes/cabecalho.php"); ?>	
 
-    <div class="container">
+    
         <div class="row">
-            <div class="col-md-12 d-flex justify-content-center align-items-center p-5"> 
-                <a href="filme.php?id=1"><button class="btn btn-primary">Você está na Homepage</button></a>
+            <div class="col-md-12"> 
+
+            
+
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="height:100%">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" >
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="img/filmes/wallpaper-spider-man.jpeg" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block rounded" style="background-color: rgba(0, 0, 0, 0.7)">
+                                <h5>Homem Aranha</h5>
+                                <p>Legal Neh</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="img/filmes/wallpaper-vingadores-ultimato.jpg" alt="Second slide">
+                        </div>
+                        <div class="carousel-item">
+                        <img class="d-block w-100" src="img/filmes/wallpaper-capita-marvel.jpg" alt="Third slide">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </div>
+
             </div>
         </div>
-    </div>
+    
 
 <?php include_once("includes/rodape.php"); ?>

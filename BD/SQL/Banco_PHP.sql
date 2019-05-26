@@ -56,6 +56,7 @@ create table Filmes(
     Fil_Titulo varchar(50),
     Fil_Sinopse text,
     Fil_Foto text,
+    Fil_Wallpaper text,
     Fil_Lancamento date,
     Fil_Tempo varchar(6),
     Fil_Genero int,
