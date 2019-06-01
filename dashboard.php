@@ -1,5 +1,8 @@
 <?php 
-include_once("includes/cabecalho.php");            
+include_once("includes/cabecalho.php");  
+if($usu_perfil < 3){
+    header("Location: 401.php");
+}else{
 ?>    
     <div class="row py-2">        
         <div class="col-md-3"> 
@@ -23,5 +26,6 @@ include_once("includes/cabecalho.php");
         </div>
     </div>   
 <?php
+}
 include_once("includes/rodape.php"); 
 ?>

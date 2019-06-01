@@ -104,13 +104,13 @@
 		
 		if ($pagina_correta != 1)
 		{
-			$pag .= "<li class='prior'>
-			<a href='dashboard.php?tb=usuario&op=menu&s=" . ($inicio - $exiba) .
+			$pag .= "<li>
+			<a class='btn btn-dark' href='dashboard.php?tb=usuario&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
 		{
-			$pag .= "<li class='disabled'><a>Anterior</a></li>";
+			$pag .= "<li><a class='btn btn-dark' disabled >Anterior</a></li>";
 		}
 		
 		//Todas as paginas
@@ -118,27 +118,27 @@
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='dashboard.php?tb=usuario&op=menu&s="
+				$pag .= "<li><a class='btn btn-dark' href='dashboard.php?tb=usuario&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
 			else
 			{
-				$pag .= "<li class='disabled'><a>"
+				$pag .= "<li><a class='btn btn-dark' disabled>"
 				. $i . "</a></li>";
 			}
 		}
 		
 		if ($pagina_correta != $pagina)
 		{
-			$pag .= "<li class='next'>
-			<a href='dashboard.php?tb=usuario&op=menu&s="
+			$pag .= "<li>
+			<a class='btn btn-dark' href='dashboard.php?tb=usuario&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}
 		else
 		{
-			$pag .= "<li class='disabled'><a>Próximo</a></li>";
+			$pag .= "<li><a class='btn btn-dark' disabled>Próximo</a></li>";
 		}
 	}
 	

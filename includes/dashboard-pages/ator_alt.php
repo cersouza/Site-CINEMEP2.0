@@ -35,8 +35,8 @@
 			$r = @mysqli_query($dbc, $q);
 			if ($r) {
 			  $sucesso = "<h1><strong>Sucesso!</strong></h1>
-			    <p>Seu registro foi alterado com sucesso!</p>
-			    <p>Aguarde... Redirecionando!</p>";
+			     <p>Seu registro foi alterado com sucesso!</p>
+			     <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
 	     		 CONTENT='3;URL=dashboard.php?tb=ator&op=menu.php'>";
 		    } else {

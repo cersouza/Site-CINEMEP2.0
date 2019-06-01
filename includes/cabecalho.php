@@ -4,12 +4,14 @@
   date_default_timezone_set('America/Sao_Paulo');
 
   $usu_id = -1;
+  $usu_perfil = 0;
   
   session_start();
 
   if(isset($_SESSION['usu_id'])){  
     $usu_id = $_SESSION['usu_id'];
     $usu_nome = $_SESSION['usu_nome'];
+    $usu_perfil = $_SESSION['usu_perfil'];
   }
 
   if ($usu_id == -1){
@@ -49,7 +51,7 @@
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">         
           
             
-            <ul class="navbar-nav">  
+            <ul class="navbar-nav d-flex align-items-center">  
 
               <li clss="nav-item active">
                 <a class="nav-link" href="index.php">HOME</span></a>
@@ -57,9 +59,12 @@
               <li clss="nav-item">
                 <a class="nav-link" href="lista-filmes.php">FILMES</span></a>
               </li>
+
+              <?php if($usu_perfil == 3) {?>
               <li clss="nav-item">
                 <a class="nav-link" href="dashboard.php">Administrativo</span></a>
               </li>
+              <?php } ?>
 
               <?php if($usu_id > -1){ ?>
 
@@ -68,7 +73,7 @@
                       Olá <?= $usu_nome;?>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="opcoes_login">
-                      <a class="dropdown-item" href="#">Alterar Conta</a>
+                      <a class="dropdown-item" href="alt-cadastro.php">Alterar Conta</a>
                       <hr />
                       <a class="dropdown-item" href="BD/deslogar.php">Sair</a>                      
                   </div>
@@ -79,7 +84,7 @@
                     <a class='nav-link' href='login.php'><button class='btn btn-light text-dark'>LOGAR</button></a>
                 </li>
                 <li clss="nav-item">
-                    <a class='nav-link' href='#'>CADASTRAR-SE</a>
+                    <a class='nav-link' href='cadastro.php'>CADASTRAR-SE</a>
                 </li>
               <?php } ?>            
               

@@ -31,8 +31,8 @@ $erro = "";
                         </form>
                     </div>
                     <div class="card-footer text-center">
-                        <a class="card-link" href="#">Esqueceu a Senha?</a>
-                        <a class="card-link text-muted" href="#">Cadastrar-se</a>
+                        <!-- a class="card-link" href="#">Esqueceu a Senha?</a -->
+                        <a class="card-link" href="cadastro.php">Cadastrar-se</a>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
 	} else if ((isset($_POST['id'])) && (is_numeric($_POST['id']))) {
 		$id = $_POST['id'];
 	} else	{
-		header("Location: moderador_menu.php");
+		header("Location: dashboard.php?tb=moderador&op=menu");
 		exit();
 	}
 	
@@ -66,7 +66,7 @@
 			    <p>Seu registro foi alterado com sucesso!</p>
 			    <p>Aguarde... Redirecionando!</p>";
 		     	 echo "<meta HTTP-EQUIV='refresh' 
-	     		 CONTENT='3;URL=moderador_menu.php'>";
+	     		 CONTENT='3;URL=dashboard.php?tb=moderador&op=menu'>";
 		    } else {
 		 		$erro = "<h1><strong>Erro no Sistema</strong></h1>
 				<p>Você não pode alterar o registro devido a um 
@@ -163,6 +163,9 @@
 		<input type="hidden" name="enviou" value="True" />
 		<input type="hidden" name="id" value="<?php echo $row[0]; ?>" />
 	</form> 
+	</div>
+	</div>
+	</div>
 		  
 <?php 
 	}

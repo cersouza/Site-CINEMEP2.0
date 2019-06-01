@@ -61,8 +61,8 @@
 			$ffto = $filme["Fil_Foto"];
 			
 			//Depois de setar as configurações de Data em "cabecalho.php", convertendo data	 
-			$flnc = strftime('%e de %B de %Y.', strtotime($filme["Fil_Lancamento"]));
-				
+			//$flnc = strftime('%e de %B de %Y.', strtotime($filme["Fil_Lancamento"]));
+			$flnc = date('d \d\e M\, Y', strtotime($filme["Fil_Lancamento"]));			
 			
 
 			$ftmp = $filme["Fil_Tempo"];
@@ -124,27 +124,38 @@
 									<tbody>
 											<tr><th>Título:</th><td><?php echo $fttl?></td></tr>							
 											<tr><th>Data Lançamento:</th><td><?php echo $flnc?></td></tr>
-											<tr><th>Elenco:</th>
-												<td>
-												<?php 
-													//se houver mais de um ator cadastrado, será separado por virgulas
-													$str = "";													
+											<?php if(mysqli_num_rows($res_atores) > 0) {?>
+												<tr><th>Elenco:</th>
+													<td>
+													<?php 
+														//se houver mais de um ator cadastrado, será separado por virgulas
+														$str = "";													
 
-													while($fil_atores = mysqli_fetch_assoc($res_atores))
-													{
-														echo $str . "<a href='https://www.google.com/search?q=". $fil_atores['atr_nome']. "' target='_blank'>" . $fil_atores['atr_nome'] . ' (' . $fil_atores['atr_papel'] . ')</a>';
-														$str = ", ";
-													}
-													
-													echo ".";
-												?>
-												</td>
-											</tr>
+														while($fil_atores = mysqli_fetch_assoc($res_atores))
+														{
+															echo $str . "<a href='https://www.google.com/search?q=". $fil_atores['atr_nome']. "' target='_blank'>" . $fil_atores['atr_nome'] . ' (' . $fil_atores['atr_papel'] . ')</a>';
+															$str = ", ";
+														}
+														
+														echo ".";
+													?>
+													</td>
+												</tr>
+												<?php }?>
 											<tr><th>Sinopse:</th>
 												<td><p><?php echo $fsnp?></p></td>
 											</tr>
-											<tr><th>Nota Usuários:<br><small class="text-muted"> <?php echo $qtd_avaliacao." ".$msg_qtd; ?></small></th>
-												<td><h2 class="text-muted"><span class="text-warning"><?php echo $media_avalicao;?></span><?php echo $ms_nota;?></h2></td></tr>
+														
+											<tr ><th>Nota Usuários:<br><small class="text-muted">
+												
+												<?php
+												if(mysqli_num_rows($res_nota) > 0){
+												echo $qtd_avaliacao." ".$msg_qtd;
+												?></small></th>
+												<td><h2 class="text-muted d-flex align-items-center"><img src='img/star.png' class="mr-2" style='height:30px; width:auto;'/><span class="text-warning"><?php echo $media_avalicao;?></span><?php echo $ms_nota;?></h2></td>
+												<?php } else  echo "<td class='d-flex align-items-center p-4'><p class='text-warning'><strong>Ainda não Avaliado!</strong></p></td>";?>
+											</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -202,7 +213,7 @@
 								$nota = "";
 
 								for($x = 1; $x <= $com_nota; $x++){
-									$nota .= "*";
+									$nota .= "<img src='img/star.png' style='height:20px; width:auto;'/>";
 								}
 
 
@@ -239,9 +250,9 @@
 									<h2 class='card-title text-warning d-inline'>$nota</h2>
 									<h3 class='card-subtitle text-muted d-inline'>$nota_desc</h3>";
 									
-								if($usu_id == $com_usu_id){
+								if(($usu_id == $com_usu_id) && ($usu_perfil != 3)){
 									//Criando um Dropdown Menu para cada comentário segundo seu Código
-									echo "<div class='dropright'>
+									echo "<div class='dropright d-inline ml-2'>
 											<button type='button' class='btn btn-secondary dropdown-toggle' id='opComentario".$com_cod."' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>+</button>
 											<div class='dropdown-menu' aria-labelledby='opComentario$com_cod'>
 												<button type='button' class='dropdown-item' data-toggle='modal' data-target='#mdl_confAlt".$com_cod."'>Editar</button>
@@ -270,6 +281,7 @@
 						</div>
 						<!-- fim .card-columns -->
 
+						<?php if($usu_perfil != 3){?>
 						<div class="card bg-light">
 								<div class="card-header text-center">
 									<h3 class="card-title">Adicionar Avaliação</h3>
@@ -289,11 +301,16 @@
 										<label for="comment">Comentário:</label>
 										<textarea class="form-control" rows="5" id="comment"  name="comentario" placeholder="Digite seu comentário aqui..."></textarea><br>
 
-										<input type="hidden" name="fil_id" value="<?echo $filme_id; ?>">										
+										<input type="hidden" name="fil_id" value="<?= $filme_id; ?>">										
 										<input class="btn btn-primary" type="submit" value="Publicar">
 									</form>
 								</div>
 							</div>
+						<?php }else{ ?>
+							<div class="alert alert-warning text-center">
+								Contas <strong>Moderadores</strong> não podem Avaliar ou Curtir Filmes!
+							</div>
+						<?php }?>
 
 					</div>
 				</div>

@@ -58,7 +58,7 @@
             <?php $href = "dashboard.php?tb=atorfilme&op=menu&fil=" . $fil;
 			?>
 			<a class="btn btn-default" href="<?php echo $href?>">Voltar Página Anterior</a>
-				<input type="submit" class="btn btn-warning" value="Excluir" />
+				<input type="submit" class="btn btn-danger" value="Excluir" />
 		</div>
 
 		<div class="row">

@@ -17,14 +17,19 @@
                             <img class="d-block w-100" src="img/filmes/wallpaper-spider-man.jpeg" alt="First slide">
                             <div class="carousel-caption d-none d-md-block rounded" style="background-color: rgba(0, 0, 0, 0.7)">
                                 <h5>Homem Aranha</h5>
-                                <p>Legal Neh</p>
                             </div>
                         </div>
                         <div class="carousel-item">
                         <img class="d-block w-100" src="img/filmes/wallpaper-vingadores-ultimato.jpg" alt="Second slide">
+                        <div class="carousel-caption d-none d-md-block rounded" style="background-color: rgba(0, 0, 0, 0.7)">
+                                <h5>Vingadores Ultimato</h5>
+                            </div>
                         </div>
                         <div class="carousel-item">
                         <img class="d-block w-100" src="img/filmes/wallpaper-capita-marvel.jpg" alt="Third slide">
+                        <div class="carousel-caption d-none d-md-block rounded" style="background-color: rgba(0, 0, 0, 0.7)">
+                                <h5>Capitã Marvel</h5>
+                            </div>
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

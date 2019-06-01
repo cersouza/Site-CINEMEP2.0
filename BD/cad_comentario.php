@@ -16,6 +16,10 @@
     if(!(isset($_SESSION['usu_id']))){
         echo "Necessário logar!";                     
     }
+    else if($_SESSION['usu_perfil'] == 3){
+        echo "Me desculpe, de acordo com as regras da empresa Contas Moderadores não podem interagir com os Filmes!<br>Redirecionando...";
+        header("Refresh: 3; url=../lista-filmes.php");
+    }
     else{  
 
         $usu_id = $_SESSION['usu_id'];

@@ -49,7 +49,7 @@
 			
 				<div id="actions" align="right">
 					<a class="btn btn-default" href="dashboard.php?tb=usuario&op=menu">Voltar Página Anterior</a>
-					<input type="submit" class="btn btn-primary" value="Excluir" />
+					<input type="submit" class="btn btn-danger" value="Excluir" />
 				</div>
 				
                 <div class="row">

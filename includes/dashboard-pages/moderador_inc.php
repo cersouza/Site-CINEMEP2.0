@@ -56,8 +56,8 @@
 			  $sucesso = "<h1><strong>Sucesso!</strong></h1>
 			  <p>Seu registro foi incluido com sucesso!</p>
 			  <p>Aguarde... Redirecionando!</p>";
-			 echo "<meta HTTP-EQUIV='refresh' 
-			 CONTENT='3;URL=moderador_menu.php'>";
+			  echo "<meta HTTP-EQUIV='refresh' 
+			  CONTENT='3;URL=dashboard.php?tb=moderador&op=menu'>";
 			}
 		} else {
 			  $erro = "<h1><strong>Erro!</strong></h1>

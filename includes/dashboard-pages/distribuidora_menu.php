@@ -104,82 +104,81 @@
 		
 		if ($pagina_correta != 1)
 		{
-			$pag .= "<li class='prior'>
-			<a href='dashboard.php?tb=distribuidora&op=menu&s=" . ($inicio - $exiba) .
+			$pag .= "<li>
+			<a class='btn btn-dark' href='dashboard.php?tb=distribuidora&op=menu&s=" . ($inicio - $exiba) .
 			"&p=" . $pagina . 
 			"&ordem=" . $ordem . "'>Anterior</a></li>";
 		} else
 		{
-			$pag .= "<li class='disabled'><a>Anterior</a></li>";
+			$pag .= "<li><a class='btn btn-dark' disabled>Anterior</a></li>";
 		}
 		
 		for ($i = 1; $i <= $pagina; $i++)
 		{
 			if ($i != $pagina_correta)
 			{
-				$pag .= "<li><a href='dashboard.php?tb=distribuidora&op=menu&s="
+				$pag .= "<li><a class='btn btn-dark' href='dashboard.php?tb=distribuidora&op=menu&s="
 				. ($exiba * ($i - 1)) . "&p=" .
 				$pagina . "&ordem=" . $ordem . "'>" . $i . "</a></li>";
 			}
 			else
 			{
-				$pag .= "<li class='disabled'><a>"
+				$pag .= "<li><a class='btn btn-dark' disabled>"
 				. $i . "</a></li>";
 			}
 		}
 		
 		if ($pagina_correta != $pagina)
 		{
-			$pag .= "<li class='next'>
-			<a href='dashboard.php?tb=distribuidora&op=menu&s="
+			$pag .= "<li>
+			<a class='btn btn-dark' href='dashboard.php?tb=distribuidora&op=menu&s="
 			. ($inicio + $exiba) .
 			"&p=" . $pagina . "&ordem=" . $ordem . "'>Próximo</a></li>";
 		}
 		else
 		{
-			$pag .= "<li class='disabled'><a>Próximo</a></li>";
+			$pag .= "<li><a class='btn btn-dark' disabled >Próximo</a></li>";
 		}
 	}
 ?>	
 
 <div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
-<div class="row">
-	<div class="col-md-3 mt-3"><h2>Distribuidora</h2></div>
-	<div class="col-md-6 mt-3">	
-		<div class="input-group h2">
-			<input class="form-control" id="busca"
-				type="text" 
-				placeholder="Pesquisa de Distribuidora por Nome Fantasia" />
-			<span class="input-group-btn">
-			   <a href="#" onclick="this.href='dashboard.php?tb=distribuidora&op=menu&q='+
-			   document.getElementById('busca').value"
-			   class="btn btn-primary">
-			   <img class="d-inline-block align-center" src="img/find.png" width="25" height="25">
-			   </a>
-			</span>
-		</div>
-	</div>
-	
-	<div class="col-md-3 mt-3">
-		<a href="dashboard.php?tb=distribuidora&op=inc" 
-		class="btn btn-primary pull-right h2">
-		Inserir Distribuidora</a>
-	</div>
-</div>			
-
-	<hr />
-	
-	<div id="list" class="row">
-		<?php echo $saida; ?>
-	</div>
-	
-	<div id="button" class="row">
-		<ul class="pagination">
-			<?php if (isset($pag)) echo $pag; ?>
-		</ul>
-	</div>
+	<div class="row">
+		<div class="col-md-3 mt-3"><h2>Distribuidora</h2></div>
+			<div class="col-md-6 mt-3">	
+				<div class="input-group h2">
+					<input class="form-control" id="busca"
+						type="text" 
+						placeholder="Pesquisa de Distribuidora por Nome Fantasia" />
+					<span class="input-group-btn">
+					<a href="#" onclick="this.href='dashboard.php?tb=distribuidora&op=menu&q='+
+					document.getElementById('busca').value"
+					class="btn btn-primary">
+					<img class="d-inline-block align-center" src="img/find.png" width="25" height="25">
+					</a>
+					</span>
+				</div>
+			</div>
 			
-</div>
+			<div class="col-md-3 mt-3">
+				<a href="dashboard.php?tb=distribuidora&op=inc" 
+				class="btn btn-primary pull-right h2">
+				Inserir Distribuidora</a>
+			</div>
+		</div>			
+
+		<hr/>
+		
+		<div id="list" class="row">
+			<?php echo $saida; ?>
+		</div>
+		
+		<div id="button" class="row">
+			<ul class="pagination">
+				<?php if (isset($pag)) echo $pag; ?>
+			</ul>
+		</div>				
+	</div>
 </div>
 </div>
 		  
