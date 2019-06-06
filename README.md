@@ -7,7 +7,7 @@ Projeto Desenvolvimento de Sistemas para Internet:
 
 **Referências:**
 
-- https://www.rottentomatoes.com/m/captain_marvel
+- https://www.rottentomatoes.com/
 
 **Autores:** Caio Eduardo & Matheus Furlan, 2019.
 _Sistemas de Informação - UNIMEP_
